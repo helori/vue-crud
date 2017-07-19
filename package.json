@@ -1,5 +1,6 @@
 {
   "name": "vue-crud",
+  "version": "1.0.0",
   "description": "Vue-crud provides usefull component to perform crud operations",
   "devDependencies": {
     "axios": "^0.16.1",
