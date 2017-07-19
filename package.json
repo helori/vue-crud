@@ -12,9 +12,9 @@
     "jquery": "^3.1.1",
     "jquery-ui-sortable-npm": "^1.0.0",
     "lodash": "^4.17.4",
-    "tinymce": "^4.6.3",
-    "vue": "^2.1.10",
-    "vuex": "^2.3.1"
+    "tinymce": "4.x",
+    "vue": "2.x",
+    "vuex": "2.x"
   },
   "keywords": [
     "vue",
