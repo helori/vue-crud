@@ -2,6 +2,9 @@
   "name": "vue-crud",
   "version": "1.0.1",
   "description": "Vue-crud provides usefull component to perform crud operations",
+  "author": {
+    "name": "Helori Lanos"
+  },
   "devDependencies": {
     "axios": "^0.16.1",
     "bootstrap-sass": "^3.3.7",
@@ -19,9 +22,7 @@
     "crud"
   ],
   "license": "MIT",
-  "author": {
-    "name": "Helori Lanos"
-  },
+  "main": "src/index.js",
   "homepage": "https://github.com/helori/vue-crud",
   "repository": {
     "type": "git",
