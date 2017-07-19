@@ -36,10 +36,6 @@ Vue.component(
     'panel',
     require('./widgets/Panel.vue')
 );
-Vue.component(
-    'slide-panel',
-    require('./widgets/SlidePanel.vue')
-);
 
 
 /**
@@ -92,16 +88,6 @@ Vue.component(
 Vue.component(
     'input-files',
     require('./inputs/InputFiles.vue')
-);
-
-Vue.component(
-    'input-media',
-    require('./inputs/InputMedia.vue')
-);
-
-Vue.component(
-    'input-medias',
-    require('./inputs/InputMedias.vue')
 );
 
 Vue.component(
