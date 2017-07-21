@@ -86,7 +86,6 @@
                     //console.log('read', this.baseUri + this.uri, this.id, response.data);
                     this.item = response.data;
                     this.loaded = true;
-                    this.$emit('appstate', 'success', 'chargé');
                     
                     this.store.commit('setStatus', {
                         status: 'success', 

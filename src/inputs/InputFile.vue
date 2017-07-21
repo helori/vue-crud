@@ -1,37 +1,36 @@
 <style scoped>
-.document-uploader a,
-.document-uploader .file-input-wrapper{
+a, .btn{
     vertical-align: top;
 }
-.document-uploader img{
+img{
     width: 100px;
     margin-right: 5px;
 }
 .file-input-wrapper{
     display: inline-block;
     position: relative;
+    vertical-align: top;
 }
-.file-input-wrapper label{
+label{
     display: block;
 }
-.file-input-wrapper input{
+input{
     position: absolute;
     left: -9999px;
-}
-.file-input-wrapper.inline{
-    display: inline-block;
 }
 </style>
 
 <template>
     <div class="document-uploader">
         
-        <img :src="baseUrl + '/document-file?' + this.decache" 
-            :alt="doc.title" 
-            v-if="doc.mime && doc.mime.indexOf('image') !== -1">
+        <img :src="'/' + dataValue.filepath" 
+            :alt="dataValue.title" 
+            v-if="dataValue.mime && dataValue.mime.indexOf('image') !== -1">
 
-        <div class="file-input-wrapper" v-if="!file || (!file.loaded && canAdd)" @click="trigger()">
-            <label class="btn btn-primary">
+        <div class="file-input-wrapper" 
+            v-if="!dataValue.filepath && (!file || !file.loaded)" 
+            @click="trigger()">
+            <label class="btn btn-default">
                 <i class="fa fa-folder-open"></i>
             </label>
             <input type="file"
@@ -45,42 +44,41 @@
                     <span class="sr-only">{{ file ? 100 * file.loaded / file.size : 0 }}% Complete</span>
             </div>
         </div>
-        <a :href="baseUrl + '/document-download/' + (doc ? doc.id : 0)"
+        <a :download="dataValue.filename"
+            :href="'/' + dataValue.filepath"
+            v-if="dataValue.filepath"
             class="btn btn-default">
             <i class="fa fa-download"></i>
         </a>
+        <button class="btn btn-danger"
+            v-if="dataValue.filepath"
+            @click="destroy()">
+            <i class="fa fa-trash"></i>
+        </button>
     </div>
 
 </template>
 
 <script>
+    import inputMixin from '../crud/InputMixin.js'
     export default {
+        mixins: [inputMixin],
+        
         data() {
             return {
-                doc: {},
                 file: null,
-                decache: Math.random().toString(36).substring(7)
-                /*getUrl: this.baseUrl + '/documents-data',
-                uploadUrl: this.baseUrl + '/document-upload',
-                deleteUrl: this.baseUrl + '/document-delete',
-                renameUrl: this.baseUrl + '/document-rename',
-                expireUrl: this.baseUrl + '/document-expire',
-                downloadUrl: this.baseUrl + '/document-download',*/
+                dataValue: {}
             };
         },
-        props: [
-            'baseUrl',
-            'title'
-        ],
+        props: {
+            apiUrl: {
+                type: String,
+                required: true
+            }
+        },
 
         mounted() {
-            //this.getItem();
-
-            // -------------------------------------------------------
-            //  Init browse button
-            // -------------------------------------------------------
             var self = this;
-
             $(this.$el).on('change', '.file-input', function(e){
                 self.file = e.target.files[0];
                 self.upload();
@@ -90,24 +88,10 @@
             });
         },
 
-        watch: {
-            baseUrl: function(url){
-                this.getItem();
-                console.log('baseUrl', this.baseUrl);
-            },
-        },
-
         methods: {
 
             trigger() {
                 $(this.$el).find('.file-input').trigger('click');
-            },
-
-            getItem() {
-                this.$http.get(this.baseUrl + '/document-data').then(response => {
-                    this.doc = response.data;
-                    console.log('getItem', this.baseUrl, this.doc);
-                });
             },
 
             // -------------------------------------------------------
@@ -117,9 +101,9 @@
             {
                 var formData = new FormData();
                 formData.append('file', this.file, this.file.name);
-                formData.append('docId', this.doc.id);
+                formData.append('name', this.name);
 
-                this.$http.post(this.baseUrl + '/document-upload', formData, {
+                axios.post(this.apiUrl + '/file', formData, {
                     upload: {
                         onprogress: (e) => {
                             if (e.lengthComputable) {
@@ -129,21 +113,19 @@
                         }
                     }
                 }).then(response => {
-                    this.getItem();
-                    this.decache = Math.random().toString(36).substring(7);
+                    this.updateValue(response.data);
                     this.file = null;
-                })
-                .catch(response => {
+                }).catch(response => {
                     console.log('upload error', response);
                 });
             },
 
-            destroy(id)
+            destroy()
             {
-                this.$http.delete(this.baseUrl + '/document-delete/' + id).then(response => {
-                    this.getItem();
-                })
-                .catch(response => {
+                console.log('destroy', this.name);
+                axios.delete(this.apiUrl + '/file/' + this.name).then(response => {
+                    this.updateValue([]);
+                }).catch(response => {
                     console.log('upload error', response);
                 });
             }
