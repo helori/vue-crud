@@ -1,7 +1,7 @@
 {
   "name": "vue-crud",
   "version": "1.0.6",
-  "description": "Vue-crud provides usefull component to perform crud operations",
+  "description": "Vue 2 components using Bootstrap 3",
   "author": {
     "name": "Helori Lanos"
   },
@@ -14,12 +14,11 @@
     "lodash": "^4.17.4",
     "tinymce": "4.x",
     "vue": "2.x",
-    "vuex": "2.x"
+    "vuex": "2.x",
+    "vuejs-datepicker": ""
   },
   "keywords": [
-    "vue",
-    "vuex",
-    "crud"
+    "vue"
   ],
   "license": "MIT",
   "main": "src/index.js",

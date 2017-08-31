@@ -3,21 +3,6 @@
 </style>
 
 <template>
-    
-    <!--input 
-        ref="input"
-        type="text"
-        :id="name"
-        class="form-control"
-        v-model="dataValue"
-        placeholder="JJ/MM/AAAA"
-        pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))"
-
-        @input=""
-        @change="updateValue($event.target.value)"
-        @keyup.enter="updateValue($event.target.value)"
-        @focus="hasFocus = true"
-        @blur="hasFocus = false"/-->
 
     <datepicker 
         v-model="dataValue"
@@ -32,7 +17,7 @@
 </template>
 
 <script>
-    import inputMixin from '../crud/InputMixin.js'
+    import inputMixin from '../mixins/InputMixin.js'
     import Datepicker from 'vuejs-datepicker'
     export default {
         mixins: [inputMixin],

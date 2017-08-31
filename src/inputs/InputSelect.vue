@@ -21,7 +21,7 @@
 </template>
 
 <script>
-    import inputMixin from '../crud/InputMixin.js'
+    import inputMixin from '../mixins/InputMixin.js'
     export default {
         mixins: [inputMixin],
         props: {
