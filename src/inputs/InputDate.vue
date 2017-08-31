@@ -4,7 +4,7 @@
 
 <template>
     
-    <input 
+    <!--input 
         ref="input"
         type="text"
         :id="name"
@@ -17,29 +17,48 @@
         @change="updateValue($event.target.value)"
         @keyup.enter="updateValue($event.target.value)"
         @focus="hasFocus = true"
-        @blur="hasFocus = false"/>
+        @blur="hasFocus = false"/-->
+
+    <datepicker 
+        v-model="dataValue"
+        format="dd MMMM yyyy"
+        class="form-control"
+        :full-month-name="true"
+        :monday-first="true"
+        language="fr"
+        @selected="updateValue">
+    </datepicker>
 
 </template>
 
 <script>
     import inputMixin from '../crud/InputMixin.js'
+    import Datepicker from 'vuejs-datepicker'
     export default {
         mixins: [inputMixin],
+        components: {
+            Datepicker
+        },
         data(){
             return{
-                dataValue: this.$options.filters.date(new Date(this.value), 'd/m/Y'),
+                dataValue: this.value ? new Date(this.value) : this.value,
                 debounceDelay: 1000
             };
         },
         watch: {
             value: {
                 handler: function (val) {
-                    this.dataValue = this.$options.filters.date(new Date(val), 'd/m/Y');
+                    this.dataValue = val ? new Date(val) : val;
                 }
             }
         },
         methods: {
-            formatDisplayValue(value) {
+            formatUpdateValue(val) {
+                var d = moment(val).format('YYYY-MM-DD') + ' 00:00:00';
+                return d;
+            }
+
+            /*formatDisplayValue(value) {
                 var d = value.substring(0, 2);
                 var m = value.substring(3, 5);
                 var y = value.substring(6, 10);
@@ -68,7 +87,7 @@
                     valid = false;
                 }
                 return valid;
-            }
+            }*/
         }
     }
 </script>

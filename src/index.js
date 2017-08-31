@@ -66,6 +66,11 @@ Vue.component(
 );
 
 Vue.component(
+    'input-json',
+    require('./inputs/InputJson.vue')
+);
+
+Vue.component(
     'input-date',
     require('./inputs/InputDate.vue')
 );

@@ -5,6 +5,9 @@
 .btn-cloud-right{
     margin: 0 0 5px 5px;
 }
+.btn-cloud-left{
+    margin: 0 5px 5px 0;
+}
 .btn-2{
     width: 49%;
 }
@@ -23,7 +26,7 @@
             v-for="option in options"
             type="button"
             class="btn"
-            :class="{'btn-primary': hasOption(option[optionValueKey]), 'btn-default': !hasOption(option[optionValueKey]), 'btn-block': display === 'column', 'btn-cloud': display === 'cloud', 'btn-cloud-right': display === 'cloud-right', 'btn-2': display === 'column2'}"
+            :class="{'btn-primary': hasOption(option[optionValueKey]), 'btn-default': !hasOption(option[optionValueKey]), 'btn-block': display === 'column', 'btn-cloud': display === 'cloud', 'btn-cloud-right': display === 'cloud-right', 'btn-cloud-left': display === 'cloud-left', 'btn-2': display === 'column2'}"
             @click="setOption(option[optionValueKey])">
             {{ option[optionLabelKey] }}
         </button>

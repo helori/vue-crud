@@ -10,6 +10,7 @@
         class="form-control"
         :placeholder="placeholder"
         v-model="dataValue"
+        :autofocus="autofocus"
         
         @input=""
         @change="updateValue($event.target.value)"

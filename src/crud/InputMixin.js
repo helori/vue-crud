@@ -34,6 +34,11 @@ export default {
             type: Boolean,
             default: false,
             required: false
+        },
+        autofocus: {
+            type: Boolean,
+            default: false,
+            required: false
         }
     },
 
@@ -69,6 +74,7 @@ export default {
         },
 
         updateValue(value) {
+            
             if(this.validateValue(value))
             {
                 var displayValue = this.formatDisplayValue(value);

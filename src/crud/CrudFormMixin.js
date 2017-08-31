@@ -14,15 +14,6 @@ export default {
         },
         errorsOrg: {
             required: true
-        },
-        baseUri: {
-            required: false
-        },
-        uri: {
-            required: false
-        },
-        options: {
-            required: false
         }
     },
 
@@ -38,16 +29,14 @@ export default {
                 if(this.readyToLoad){
                     this.setItem(item);
                 }
-            }
-            //deep: true,
-            //immediate: true
+            },
+            deep: true
         },
         errorsOrg: {
             handler: function () {
                 this.errors = _.clone(this.errorsOrg);
-            }
-            //deep: true,
-            //immediate: true
+            },
+            deep: true
         }
     },
 

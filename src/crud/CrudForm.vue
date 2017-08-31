@@ -107,7 +107,7 @@
                     message: 'Mise à jour des données...'
                 });
                 axios.put(this.baseUri + this.uri + '/' + item.id, item).then(response => {
-                    //console.log('update', this.baseUri + this.uri, this.id, this.item, response.data);
+                    
                     this.item = response.data;
                     this.store.commit('setStatus', {
                         status: 'success', 
@@ -117,15 +117,15 @@
                     if(this.updateCallback){
                         this.updateCallback();
                     }
-                    //this.validate();
+                    
                 }).catch(response => {
-                    //this.validate();
-                    this.errors = response.body;
+                    
+                    this.errors = response.response.data;
                     this.store.commit('setStatus', {
                         status: 'error', 
                         message: response.response.data
                     });
-                    console.log(response);
+                    
                 });
             },
             /*validate(){

@@ -4,7 +4,7 @@
         line-height: normal;
     }
     .checkbox-wrapper label{
-        display: inline-block;
+        display: block;
         vertical-align: top;
         position: relative;
         min-height: 30px;
@@ -39,14 +39,15 @@
         transition: all 0.1s linear;
     }
     .checkbox-wrapper label .text{
-        margin-left: 55px;
-        min-height: 30px;
-        vertical-align: middle;
         display: table;
+        margin-left: 55px;
+        vertical-align: middle;
+        min-height: 30px;
     }
     .checkbox-wrapper label .text > .inside{
         display: table-cell;
-        min-height: 30px;
+        padding: 5px 0;
+        line-height: 20px;
         vertical-align: middle;
     }
     .checkbox-wrapper label .text > .inside > .name{
@@ -98,10 +99,8 @@
                 @blur="hasFocus = false"
                 @input="updateValue($event.target.checked)">
 
-            <div class="inside">
-                <div class="control">
-                    <div class="cursor"></div>
-                </div>
+            <div class="control">
+                <div class="cursor"></div>
             </div>
             <div class="text">
                 <div class="inside">
