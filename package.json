@@ -10,12 +10,10 @@
     "bootstrap-sass": "^3.3.7",
     "font-awesome": "^4.7.0",
     "jquery": "^3.1.1",
-    "jquery-ui-sortable-npm": "^1.0.0",
     "lodash": "^4.17.4",
     "tinymce": "4.x",
     "vue": "2.x",
-    "vuex": "2.x",
-    "vuejs-datepicker": ""
+    "vuejs-datepicker": "^0.9.4"
   },
   "keywords": [
     "vue"
