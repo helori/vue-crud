@@ -12,7 +12,8 @@
     "lodash": "^4.17.4",
     "tinymce": "4.x",
     "vue": "2.x",
-    "vuejs-datepicker": "^0.9.4"
+    "vuejs-datepicker": "^0.9.4",
+    "moment": "latest"
   },
   "keywords": [
     "vue"

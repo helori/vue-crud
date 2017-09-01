@@ -29,6 +29,7 @@
 
     import inputMixin from '../mixins/InputMixin.js'
     import Datepicker from 'vuejs-datepicker'
+    import moment from 'moment'
 
     export default {
         mixins: [inputMixin],
