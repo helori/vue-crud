@@ -17,8 +17,10 @@
 </template>
 
 <script>
+
     import inputMixin from '../mixins/InputMixin.js'
     import Datepicker from 'vuejs-datepicker'
+    
     export default {
         mixins: [inputMixin],
         components: {
