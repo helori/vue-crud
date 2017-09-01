@@ -1,5 +1,14 @@
 <style scoped>
-    
+.vdp-datepicker.form-control{
+    padding: 3px;
+}
+.vdp-datepicker.form-control input{
+    width: 100%;
+    border: 0;
+    padding: 0 5px;
+    height: 32px;
+    line-height: 32px;
+}
 </style>
 
 <template>
@@ -20,7 +29,7 @@
 
     import inputMixin from '../mixins/InputMixin.js'
     import Datepicker from 'vuejs-datepicker'
-    
+
     export default {
         mixins: [inputMixin],
         components: {
