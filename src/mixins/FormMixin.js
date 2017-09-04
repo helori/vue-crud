@@ -35,6 +35,7 @@ export default {
         errorsOrg: {
             handler: function () {
                 this.errors = _.clone(this.errorsOrg);
+                console.log(this.errors.errors, this.getError('title'));
             },
             deep: true
         }
@@ -57,11 +58,23 @@ export default {
         },
 
         getError(field){
-            if(this.errors && this.errors[field]){
-                return this.errors[field][0];
+            if(this.errors && this.errors.errors && this.errors.errors[field]){
+                return this.errors.errors[field][0];
             }
             return null;
         },
+
+        getGlobalError(){
+            if(this.errors && !this.errors.errors){
+                return this.errors.message;
+            }
+            return null;
+        },
+
+        /*refreshFromProps(){
+            this.item = _.clone(this.itemOrg);
+            this.errors = _.clone(this.errorsOrg);
+        },*/
 
         // To be overloaded
         afterRead(){},
