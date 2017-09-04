@@ -22,7 +22,7 @@
                         <p v-html="message"></p>
 
                         <div class="alert alert-danger" v-if="errors">
-                            {{ errors }}
+                            {{ errors.message }}
                         </div>
 
                     </div>
