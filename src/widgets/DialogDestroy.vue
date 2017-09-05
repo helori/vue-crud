@@ -75,7 +75,7 @@
         },
 
         mounted(){
-            this.dialog = $(this.$el).find('.modal-destroy');
+            this.dialog = $(this.$el).find('> .modal-destroy');
         },
 
         methods: {
