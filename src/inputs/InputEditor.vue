@@ -79,7 +79,7 @@
                 //menubar: "tools table format view insert edit",
                 menubar: false,
                 //toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-                toolbar: "undo redo | bold italic | fontsizeselect | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | code",
+                toolbar: "undo redo | bold italic | fontsizeselect | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | blockquote | code",
                 //toolbar2: "fontsizeselect | forecolor backcolor | charmap | emoticons | media",
                 /*style_formats: [
                  {title: 'Bold text', inline: 'b'},
