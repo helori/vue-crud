@@ -10,7 +10,10 @@
         <div class="form-group" :class="{'has-error': error}">
             <label :for="name" :class="'control-label col col-sm-' + labelColumns" v-if="!inverted">{{ label }} :</label>
             <div :class="'col col-sm-' + (12 - labelColumns)">
-                <slot name="input"></slot>
+                <div :class="{'input-group': suffix !== null}">
+                    <slot name="input"></slot>
+                    <div class="input-group-addon" v-if="suffix !== null">{{ suffix }}</div>
+                </div>
                 <p class="help-block" v-if="help">{{ help }}</p>
                 <p class="help-block" v-if="error">{{ error }}</p>
             </div>
@@ -36,7 +39,8 @@
             },
             help: {
                 type: String,
-                default: null
+                default: null,
+                required: false
             },
             inverted: {
                 type: Boolean,
@@ -47,6 +51,11 @@
                 type: Number,
                 default: 4,
                 required: false
+            },
+            suffix: {
+                type: String,
+                default: null,
+                required: false  
             }
         },
     }
