@@ -35,7 +35,6 @@ export default {
         errorsOrg: {
             handler: function () {
                 this.errors = _.clone(this.errorsOrg);
-                console.log(this.errors.errors, this.getError('title'));
             },
             deep: true
         }
