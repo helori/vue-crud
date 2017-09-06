@@ -49,8 +49,11 @@ export default {
         },
 
         updated() {
-            this.$emit('change', this.item);
-            this.afterUpdate();
+            // Do not send event if data not loaded yet !
+            if(this.readyToLoad && this.item){
+                this.$emit('change', this.item);
+                this.afterUpdate();
+            }
         },
 
         hasErrors(){
