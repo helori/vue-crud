@@ -1,5 +1,10 @@
 <style scoped>
-
+.message{
+    margin: 0 0 15px 0;
+}
+.alert{
+    margin: 15px 0 0 0;
+}
 </style>
 
 <template>
@@ -19,7 +24,19 @@
                     
                     <div class="modal-body">
 
-                        <p v-html="message"></p>
+                        <p class="message" v-html="message"></p>
+
+                        <input-wrapper-horizontal 
+                            v-if="checkerTitle"
+                            name="destroy-checker"
+                            :label="checkerTitle">
+                            <div slot="input">
+                                <input-text
+                                    v-model="checker"
+                                    name="destroy-checker">
+                                </input-text>
+                            </div>
+                        </input-wrapper-horizontal>
 
                         <div class="alert alert-danger" v-if="errors">
                             {{ errors.message }}
@@ -32,7 +49,7 @@
 
                         <button type="button" class="btn btn-danger" 
                             @click="destroy"
-                            :disabled="status === 'loading' || status === 'success'">
+                            :disabled="disabled || status === 'loading' || status === 'success'">
                             <i class="fa fa-spinner fa-spin" v-if="status === 'loading'"></i> Yes, delete !
                         </button>
                     </div>
@@ -50,7 +67,8 @@
 
         data(){
             return{
-                dialog: null
+                dialog: null,
+                checker: null,
             }
         },
 
@@ -71,6 +89,16 @@
             },
             errors: {
                 required: false
+            },
+            disabled: {
+                type: Boolean,
+                required: false,
+                default: false
+            },
+            checkerTitle: {
+                type: String,
+                required: false,
+                default: null
             }
         },
 
