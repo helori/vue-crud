@@ -30,9 +30,23 @@
         },
 
         props: {
-            'css': {
+            css: {
                 type: String,
-                default: ''
+                default: '',
+                default: '',
+                required: false
+            },
+            assetsUrl: {
+                type: String,
+                default: '',
+                required: false
+            },
+            editorOptions: {
+                type: Object,
+                required: false,
+                default(){
+                    return {};
+                }
             }
         },
         
@@ -107,10 +121,23 @@
                     });
                 }
             };
-            /*if($rootScope.editorOpts != ''){
-                angular.extend(scope.tinyMCE_options, $rootScope.editorOpts);
-            }*/
-            tinymce.init(this.tinyMCE_options);
+
+            _.extend(this.tinyMCE_options, this.editorOptions);
+
+            if(this.assetsUrl){
+
+                axios.get(this.assetsUrl).then(response => {
+                    
+                    this.tinyMCE_options.image_list = response.data;
+                    this.tinyMCE_options.link_list = response.data;
+                    
+                    tinymce.init(this.tinyMCE_options);
+
+                });
+
+            }else{
+                tinymce.init(this.tinyMCE_options);
+            }
         }
     }
 </script>
