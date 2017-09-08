@@ -29,12 +29,14 @@
 
                     <!-- Modal Actions -->
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="0">Cancel</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="0" @click="cancel">
+                            {{ cancelText }}
+                        </button>
 
                         <button type="button" class="btn btn-danger" tabindex="1"
                             @click="save"
                             :disabled="status === 'loading' || status === 'success'">
-                            <i class="fa fa-spinner fa-spin" v-if="status === 'loading'"></i> Save 
+                            <i class="fa fa-spinner fa-spin" v-if="status === 'loading'"></i> {{ saveText }} 
                         </button>
                     </div>
 
@@ -68,6 +70,16 @@
             errors: {
                 required: false,
                 default: null
+            },
+            saveText: {
+                type: String,
+                required: false,
+                default: 'Save'
+            },
+            cancelText: {
+                type: String,
+                required: false,
+                default: 'Cancel'
             }
         },
 
@@ -81,9 +93,11 @@
         methods: {
 
             save() {
-                
                 this.$emit('save');
+            },
 
+            cancel() {
+                this.$emit('cancel');
             },
 
             open(){

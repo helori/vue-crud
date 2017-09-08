@@ -125,8 +125,6 @@
                 
             this.tinyMCE_options = Object.assign({}, this.tinyMCE_options, this.editorOptions);
 
-            console.log(this.tinyMCE_options.textcolor_map);
-
             if(this.assetsUrl){
 
                 axios.get(this.assetsUrl).then(response => {
