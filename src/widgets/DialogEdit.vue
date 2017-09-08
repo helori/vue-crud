@@ -33,7 +33,7 @@
                             {{ cancelText }}
                         </button>
 
-                        <button type="button" class="btn btn-danger" tabindex="1"
+                        <button type="button" class="btn btn-primary" tabindex="1"
                             @click="save"
                             :disabled="status === 'loading' || status === 'success'">
                             <i class="fa fa-spinner fa-spin" v-if="status === 'loading'"></i> {{ saveText }} 
