@@ -94,6 +94,7 @@
                 menubar: false,
                 //toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
                 toolbar: "undo redo | bold italic | fontsizeselect | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link | blockquote | code",
+                textcolor_map: {},
                 //toolbar2: "fontsizeselect | forecolor backcolor | charmap | emoticons | media",
                 /*style_formats: [
                  {title: 'Bold text', inline: 'b'},
@@ -121,15 +122,29 @@
                     });
                 }
             };
+                
+            this.tinyMCE_options = Object.assign({}, this.tinyMCE_options, this.editorOptions);
 
-            _.extend(this.tinyMCE_options, this.editorOptions);
+            console.log(this.tinyMCE_options.textcolor_map);
 
             if(this.assetsUrl){
 
                 axios.get(this.assetsUrl).then(response => {
                     
-                    this.tinyMCE_options.image_list = response.data;
-                    this.tinyMCE_options.link_list = response.data;
+                    var medias = [];
+                    
+                    _.forEach(response.data, function(media){
+                        medias.push({
+                            title: media.title + ' (' + media.mime + ')',
+                            value: media.filepath
+                        });
+                    });
+                    
+                    var opts = {
+                        image_list: medias,
+                        link_list: medias
+                    };
+                    this.tinyMCE_options = Object.assign({}, this.tinyMCE_options, opts);
                     
                     tinymce.init(this.tinyMCE_options);
 
