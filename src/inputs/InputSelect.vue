@@ -60,7 +60,7 @@
             },
             emptyValue: {
               type: String,
-              default: ''
+              default: null
             },
             emptyLabel: {
               type: String,

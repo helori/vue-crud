@@ -1,6 +1,6 @@
 export default {
     data(){
-        return{
+        return {
             dataValue: this.value,
             uniqId: Math.random().toString(36).substring(7) + '_',
             hasFocus: false,
