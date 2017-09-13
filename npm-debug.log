@@ -13,24 +13,24 @@
 7 silly cache add   rawSpec: '.',
 7 silly cache add   spec: '/Users/helori/Sites/_packages_/vue-crud',
 7 silly cache add   type: 'directory' }
-8 verbose addLocalDirectory /Users/helori/.npm/vue-crud/1.1.20/package.tgz not in flight; packing
+8 verbose addLocalDirectory /Users/helori/.npm/vue-crud/1.1.21/package.tgz not in flight; packing
 9 verbose correctMkdir /Users/helori/.npm correctMkdir not in flight; initializing
-10 info lifecycle vue-crud@1.1.20~prepublish: vue-crud@1.1.20
-11 silly lifecycle vue-crud@1.1.20~prepublish: no script for prepublish, continuing
-12 info lifecycle vue-crud@1.1.20~prepare: vue-crud@1.1.20
-13 silly lifecycle vue-crud@1.1.20~prepare: no script for prepare, continuing
-14 verbose tar pack [ '/Users/helori/.npm/vue-crud/1.1.20/package.tgz',
+10 info lifecycle vue-crud@1.1.21~prepublish: vue-crud@1.1.21
+11 silly lifecycle vue-crud@1.1.21~prepublish: no script for prepublish, continuing
+12 info lifecycle vue-crud@1.1.21~prepare: vue-crud@1.1.21
+13 silly lifecycle vue-crud@1.1.21~prepare: no script for prepare, continuing
+14 verbose tar pack [ '/Users/helori/.npm/vue-crud/1.1.21/package.tgz',
 14 verbose tar pack   '/Users/helori/Sites/_packages_/vue-crud' ]
-15 verbose tarball /Users/helori/.npm/vue-crud/1.1.20/package.tgz
+15 verbose tarball /Users/helori/.npm/vue-crud/1.1.21/package.tgz
 16 verbose folder /Users/helori/Sites/_packages_/vue-crud
-17 verbose addLocalTarball adding from inside cache /Users/helori/.npm/vue-crud/1.1.20/package.tgz
+17 verbose addLocalTarball adding from inside cache /Users/helori/.npm/vue-crud/1.1.21/package.tgz
 18 verbose correctMkdir /Users/helori/.npm correctMkdir not in flight; initializing
-19 silly cache afterAdd vue-crud@1.1.20
-20 verbose afterAdd /Users/helori/.npm/vue-crud/1.1.20/package/package.json not in flight; writing
+19 silly cache afterAdd vue-crud@1.1.21
+20 verbose afterAdd /Users/helori/.npm/vue-crud/1.1.21/package/package.json not in flight; writing
 21 verbose correctMkdir /Users/helori/.npm correctMkdir not in flight; initializing
-22 verbose afterAdd /Users/helori/.npm/vue-crud/1.1.20/package/package.json written
+22 verbose afterAdd /Users/helori/.npm/vue-crud/1.1.21/package/package.json written
 23 silly publish { name: 'vue-crud',
-23 silly publish   version: '1.1.20',
+23 silly publish   version: '1.1.21',
 23 silly publish   description: 'Vue 2 components using Bootstrap 3',
 23 silly publish   author: { name: 'Helori Lanos' },
 23 silly publish   dependencies:
@@ -51,14 +51,14 @@
 23 silly publish      url: 'git+https://github.com/helori/vue-crud.git' },
 23 silly publish   readme: '# vue-crud',
 23 silly publish   readmeFilename: 'README.md',
-23 silly publish   gitHead: 'db587ae08aa302acdf23c43ed622b5982fe8b3d7',
+23 silly publish   gitHead: '1bd06849e2a5b9cc511039d8e516f94d64dc4b53',
 23 silly publish   bugs: { url: 'https://github.com/helori/vue-crud/issues' },
-23 silly publish   _id: 'vue-crud@1.1.20',
+23 silly publish   _id: 'vue-crud@1.1.21',
 23 silly publish   scripts: {},
-23 silly publish   _shasum: '248ed1a6e4098b4c5bdff04e68ed50896de8ee6a',
+23 silly publish   _shasum: '8685b965e5d910ffcdf21313e7e037ab67b074a1',
 23 silly publish   _from: '.' }
-24 info lifecycle vue-crud@1.1.20~prepublishOnly: vue-crud@1.1.20
-25 silly lifecycle vue-crud@1.1.20~prepublishOnly: no script for prepublishOnly, continuing
+24 info lifecycle vue-crud@1.1.21~prepublishOnly: vue-crud@1.1.21
+25 silly lifecycle vue-crud@1.1.21~prepublishOnly: no script for prepublishOnly, continuing
 26 verbose getPublishConfig undefined
 27 silly mapToRegistry name vue-crud
 28 silly mapToRegistry using default registry
@@ -73,29 +73,29 @@
 30 silly mapToRegistry   type: 'tag' }
 31 silly mapToRegistry uri https://registry.npmjs.org/vue-crud
 32 verbose publish registryBase https://registry.npmjs.org/
-33 silly publish uploading /Users/helori/.npm/vue-crud/1.1.20/package.tgz
+33 silly publish uploading /Users/helori/.npm/vue-crud/1.1.21/package.tgz
 34 verbose request uri https://registry.npmjs.org/vue-crud
 35 verbose request sending authorization for write operation
-36 info attempt registry request try #1 at 10:50:14
+36 info attempt registry request try #1 at 13:36:57
 37 verbose request using bearer token for auth
-38 verbose request id ab3695845259d031
+38 verbose request id 3193b29b25bc9348
 39 http request PUT https://registry.npmjs.org/vue-crud
 40 http 403 https://registry.npmjs.org/vue-crud
 41 verbose headers { 'content-type': 'application/json',
 41 verbose headers   'cache-control': 'max-age=300',
 41 verbose headers   'content-length': '92',
 41 verbose headers   'accept-ranges': 'bytes',
-41 verbose headers   date: 'Wed, 13 Sep 2017 08:50:15 GMT',
+41 verbose headers   date: 'Wed, 13 Sep 2017 11:36:58 GMT',
 41 verbose headers   via: '1.1 varnish',
 41 verbose headers   connection: 'keep-alive',
-41 verbose headers   'x-served-by': 'cache-cdg8722-CDG',
+41 verbose headers   'x-served-by': 'cache-cdg8726-CDG',
 41 verbose headers   'x-cache': 'MISS',
 41 verbose headers   'x-cache-hits': '0',
-41 verbose headers   'x-timer': 'S1505292614.332213,VS0,VE971',
+41 verbose headers   'x-timer': 'S1505302618.001865,VS0,VE948',
 41 verbose headers   vary: 'Accept-Encoding, Accept' }
 42 verbose request invalidating /Users/helori/.npm/registry.npmjs.org/vue-crud on PUT
 43 error publish Failed PUT 403
-44 verbose stack Error: You cannot publish over the previously published version 1.1.20. : vue-crud
+44 verbose stack Error: You cannot publish over the previously published version 1.1.21. : vue-crud
 44 verbose stack     at makeError (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:302:12)
 44 verbose stack     at CachingRegistryClient.<anonymous> (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:290:14)
 44 verbose stack     at Request._callback (/usr/local/lib/node_modules/npm/node_modules/npm-registry-client/lib/request.js:210:14)
@@ -114,7 +114,7 @@
 50 error node v7.4.0
 51 error npm  v4.0.5
 52 error code E403
-53 error You cannot publish over the previously published version 1.1.20. : vue-crud
+53 error You cannot publish over the previously published version 1.1.21. : vue-crud
 54 error If you need help, you may report this error at:
 54 error     <https://github.com/npm/npm/issues>
 55 verbose exit [ 1, true ]

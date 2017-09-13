@@ -69,7 +69,7 @@
         },
         computed: {
           hasGroups(){
-            return this.groupLabelKey !== '' && groupItemsKey !== '';
+            return this.groupLabelKey !== '' && this.groupItemsKey !== '';
           }
         }
     }
