@@ -11,7 +11,7 @@
                 <slot name="title"></slot>
             </h4>
         </div>
-        <div class="panel-body">
+        <div class="panel-body" :style="'padding: ' + padding + 'px'">
             <slot name="body"></slot>
         </div>
     </div>
@@ -22,6 +22,13 @@
         methods: {
             hasSlot(slot){
                 return this.$slots[slot] ? true : false;
+            }
+        },
+        props: {
+            padding: {
+                type: Number,
+                default: 15,
+                required: false
             }
         }
     }
