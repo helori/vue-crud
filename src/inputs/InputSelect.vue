@@ -14,8 +14,13 @@
         @keyup.enter="updateValue($event.target.value)"
         @focus="hasFocus = true"
         @blur="hasFocus = false">
-            <option disabled v-if="hasEmpty" :value="emptyValue">{{ emptyLabel }}</option>
-            <option v-for="option in options" :value="option[optionValueKey]">{{ option[optionLabelKey] }}</option>
+            <option v-if="hasEmpty" :value="emptyValue">{{ emptyLabel }}</option>
+
+            <option v-if="!hasGroups" v-for="option in options" :value="option[optionValueKey]">{{ option[optionLabelKey] }}</option>
+
+            <optgroup v-if="hasGroups" v-for="group in options" :label="group[groupLabelKey]">
+              <option v-for="option in group[groupItemsKey]" :value="option[optionValueKey]">{{ option[optionLabelKey] }}</option>
+            </optgroup>
     </select>
   </div>
 </template>
@@ -39,6 +44,16 @@
                 type: String,
                 default: 'value'
             },
+            groupLabelKey: {
+              type: String,
+              default: '',
+              required: false
+            },
+            groupItemsKey: {
+              type: String,
+              default: '',
+              required: false
+            },
             hasEmpty: {
               type: Boolean,
               default: true
@@ -52,5 +67,10 @@
               default: ''
             }
         },
+        computed: {
+          hasGroups(){
+            return this.groupLabelKey !== '' && groupItemsKey !== '';
+          }
+        }
     }
 </script>
