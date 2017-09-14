@@ -68,10 +68,16 @@
         },
 
         mounted(){
+            
+            var self = this;
+
             this.dialog = $(this.$el).find('> .modal');
+
             this.dialog.on('shown.bs.modal', function (e) {
+
                 $(this).find('input').first().focus();
-                this.$emit('opened');
+                
+                self.$emit('opened');
             });
         },
 
