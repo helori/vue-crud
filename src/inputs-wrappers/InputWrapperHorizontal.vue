@@ -8,7 +8,7 @@
     
     <div class="form-horizontal">
         <div class="form-group" :class="{'has-error': error}">
-            <label :for="name" class="control-label col" :class="{'col-sm-' + labelColumns : labelColumns, 'text-' + labelAlign : labelAlign}" v-if="!inverted">{{ label }} :</label>
+            <label :for="name" :class="'control-label col col-sm-' + labelColumns + ' text-' + labelAlign" v-if="!inverted">{{ label }} :</label>
             <div :class="'col col-sm-' + (12 - labelColumns)">
                 <div :class="{'input-group': suffix !== null}">
                     <slot name="input"></slot>
@@ -17,7 +17,7 @@
                 <p class="help-block" v-if="help">{{ help }}</p>
                 <p class="help-block" v-if="error">{{ error }}</p>
             </div>
-            <label :for="name" class="control-label col" :class="{'col-sm-' + labelColumns : labelColumns, 'text-' + labelAlign : labelAlign}" v-if="inverted">{{ label }} :</label>
+            <label :for="name" :class="'control-label col col-sm-' + labelColumns + ' text-' + labelAlign" v-if="inverted">{{ label }} :</label>
         </div>
     </div>
 
