@@ -8,6 +8,7 @@
         :id="name"
         class="form-control"
         v-model="dataValue"
+        :multiple="multiple"
 
         @input=""
         @change="updateValue($event.target.value)"
@@ -35,6 +36,11 @@
               default: function(){
                 return [];
               }
+            },
+            multiple: {
+              type: Boolean,
+              required: false,
+              default: false
             },
             optionLabelKey: {
                 type: String,
