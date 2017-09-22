@@ -1,5 +1,7 @@
 <style scoped>
-
+.modal-dialog{
+    max-width: 95%;
+}
 </style>
 
 <template>
@@ -7,7 +9,7 @@
     <div>
 
         <div class="modal fade"tabindex="-1" role="dialog">
-            <div class="modal-dialog">
+            <div class="modal-dialog" :style="'width: ' + width + 'px'">
                 <div class="modal-content">
                     
                     <div class="modal-header">
@@ -80,6 +82,11 @@
                 type: String,
                 required: false,
                 default: 'Cancel'
+            },
+            width: {
+                type: Number,
+                required: false,
+                default: 600
             }
         },
 

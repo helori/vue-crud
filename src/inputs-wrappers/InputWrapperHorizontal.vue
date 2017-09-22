@@ -17,7 +17,7 @@
                 <p class="help-block" v-if="help">{{ help }}</p>
                 <p class="help-block" v-if="error">{{ error }}</p>
             </div>
-            <label :for="name" :class="'control-label col col-sm-' + labelColumns" :style="'text-align: ' + labelAlign" v-if="inverted">{{ label }} :</label>
+            <label :for="name" :class="'control-label col col-sm-' + labelColumns" :style="'text-align: ' + labelAlign" v-if="inverted">{{ label }}</label>
         </div>
     </div>
 
