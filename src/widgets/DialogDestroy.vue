@@ -26,6 +26,8 @@
 
                         <p class="message" v-html="message"></p>
 
+                        <slot name="body"></slot>
+
                         <input-wrapper-horizontal 
                             v-if="checkerTitle"
                             name="destroy-checker"
@@ -45,12 +47,12 @@
                     </div>
                     
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ cancelText }} </button>
 
                         <button type="button" class="btn btn-danger" 
                             @click="destroy"
                             :disabled="disabled || status === 'loading' || status === 'success'">
-                            <i class="fa fa-spinner fa-spin" v-if="status === 'loading'"></i> Yes, delete !
+                            <i class="fa fa-spinner fa-spin" v-if="status === 'loading'"></i> {{ destroyText }} 
                         </button>
                     </div>
 
@@ -99,7 +101,17 @@
                 type: String,
                 required: false,
                 default: null
-            }
+            },
+            destroyText: {
+                type: String,
+                required: false,
+                default: 'Delete'
+            },
+            cancelText: {
+                type: String,
+                required: false,
+                default: 'Cancel'
+            },
         },
 
         mounted(){
