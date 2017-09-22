@@ -24,7 +24,7 @@
                     
                     <div class="modal-body">
 
-                        <p class="message" v-html="message"></p>
+                        <p class="message" v-html="message" v-if="message"></p>
 
                         <slot name="body"></slot>
 
@@ -83,7 +83,7 @@
             message: {
                 type: String,
                 default: '',
-                required: true
+                required: false
             },
             status: {
                 // Can be null, 'loading', success', 'error'
@@ -115,7 +115,15 @@
         },
 
         mounted(){
+            var self = this;
             this.dialog = $(this.$el).find('> .modal-destroy');
+            this.dialog.on('shown.bs.modal', function (e) {
+                $(this).find('input').first().focus();
+                self.$emit('opened');
+            });
+            this.dialog.on('hidden.bs.modal', function (e) {
+                self.$emit('closed');
+            });
         },
 
         methods: {

@@ -79,6 +79,10 @@
                 
                 self.$emit('opened');
             });
+
+            this.dialog.on('hidden.bs.modal', function (e) {
+                self.$emit('closed');
+            });
         },
 
         methods: {
