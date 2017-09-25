@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 Vue.filter('date', function (value, format) {
     if(value){
         return moment(value, "YYYY-MM-DD hh:mm:ss").format(format);

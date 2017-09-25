@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 Vue.filter('number', function (value, decimals) {
     if(value){
         var ent = Math.floor(value);

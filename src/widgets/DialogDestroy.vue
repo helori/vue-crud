@@ -40,7 +40,7 @@
                             </div>
                         </input-wrapper-horizontal>
 
-                        <div class="alert alert-danger" v-if="errors">
+                        <div class="alert alert-danger text-center" v-if="errors">
                             {{ errors.message }}
                         </div>
 
