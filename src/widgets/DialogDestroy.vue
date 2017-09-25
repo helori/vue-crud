@@ -146,12 +146,11 @@
         methods: {
 
             destroy() {
-                
                 this.$emit('destroy');
-
             },
 
             open(){
+                this.status = null;
                 this.dialog.modal('show');
             },
 

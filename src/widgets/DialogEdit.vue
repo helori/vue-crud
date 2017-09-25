@@ -130,6 +130,7 @@
             },
 
             open(){
+                this.status = null;
                 this.dialog.modal('show');
             },
 
