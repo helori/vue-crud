@@ -37,8 +37,8 @@
 
                         <button type="button" class="btn btn-primary" tabindex="1"
                             @click="save"
-                            :disabled="status === 'loading' || status === 'success'">
-                            <i class="fa fa-spinner fa-spin" v-if="status === 'loading'"></i> {{ saveText }} 
+                            :disabled="status === 'pending' || status === 'success'">
+                            <i class="fa fa-spinner fa-spin" v-if="status === 'pending'"></i> {{ saveText }} 
                         </button>
                     </div>
 
@@ -55,7 +55,8 @@
 
         data(){
             return{
-                dialog: null
+                dialog: null,
+                status: 'pending'
             }
         },
 
@@ -65,8 +66,7 @@
                 default: '',
                 required: true
             },
-            status: {
-                // Can be null, 'loading', success', 'error'
+            promise: {
                 required: true
             },
             errors: {
@@ -100,6 +100,21 @@
             this.dialog.on('hidden.bs.modal', function (e) {
                 self.$emit('closed');
             });
+        },
+
+        watch{
+            promise: {
+                handler(promise){
+                    if(promise){
+                        this.status = 'pending';
+                        promise.then(r => {
+                            this.status = 'success';
+                        }).catch(r => {
+                            this.status = 'error';
+                        });
+                    }
+                }
+            }
         },
 
         methods: {
