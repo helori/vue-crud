@@ -56,7 +56,7 @@
         data(){
             return{
                 dialog: null,
-                status: 'pending'
+                status: null,
             }
         },
 
@@ -102,11 +102,13 @@
             });
         },
 
-        watch{
+        watch: {
             promise: {
                 handler(promise){
                     if(promise){
+
                         this.status = 'pending';
+
                         promise.then(r => {
                             this.status = 'success';
                         }).catch(r => {

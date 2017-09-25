@@ -70,6 +70,7 @@
         data(){
             return{
                 dialog: null,
+                status: null,
                 checker: null,
             }
         },
@@ -85,8 +86,7 @@
                 default: '',
                 required: false
             },
-            status: {
-                // Can be null, 'loading', success', 'error'
+            promise: {
                 required: true
             },
             errors: {
@@ -124,6 +124,23 @@
             this.dialog.on('hidden.bs.modal', function (e) {
                 self.$emit('closed');
             });
+        },
+
+        watch: {
+            promise: {
+                handler(promise){
+                    if(promise){
+
+                        this.status = 'pending';
+
+                        promise.then(r => {
+                            this.status = 'success';
+                        }).catch(r => {
+                            this.status = 'error';
+                        });
+                    }
+                }
+            }
         },
 
         methods: {
