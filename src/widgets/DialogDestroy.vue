@@ -51,8 +51,8 @@
 
                         <button type="button" class="btn btn-danger" 
                             @click="destroy"
-                            :disabled="disabled || status === 'loading' || status === 'success'">
-                            <i class="fa fa-spinner fa-spin" v-if="status === 'loading'"></i> {{ destroyText }} 
+                            :disabled="disabled || status === 'pending' || status === 'success'">
+                            <i class="fa fa-spinner fa-spin" v-if="status === 'pending'"></i> {{ destroyText }} 
                         </button>
                     </div>
 
