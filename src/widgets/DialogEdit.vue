@@ -57,6 +57,9 @@
             return{
                 dialog: null,
                 status: null,
+
+                closeCallback: null,
+                openCallback: null,
             }
         },
 
@@ -96,9 +99,15 @@
             this.dialog.on('shown.bs.modal', function (e) {
                 $(this).find('input').first().focus();
                 self.$emit('opened');
+                if(self.openCallback){
+                    self.openCallback();
+                }
             });
             this.dialog.on('hidden.bs.modal', function (e) {
                 self.$emit('closed');
+                if(self.closeCallback){
+                    self.closeCallback();
+                }
             });
         },
 
@@ -130,18 +139,18 @@
             },
 
             open(callback){
+                if(callback){
+                    this.openCallback = callback;
+                }
                 this.status = null;
                 this.dialog.modal('show');
-                if(callback){
-                    callback();
-                }
             },
 
             close(callback){
-                this.dialog.modal('hide');
                 if(callback){
-                    callback();
+                    this.closeCallback = callback;
                 }
+                this.dialog.modal('hide');
             }
         }
     }

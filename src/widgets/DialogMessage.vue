@@ -45,7 +45,10 @@
 
         data(){
             return{
-                dialog: null
+                dialog: null,
+
+                closeCallback: null,
+                openCallback: null,
             }
         },
 
@@ -78,10 +81,17 @@
                 $(this).find('input').first().focus();
                 
                 self.$emit('opened');
+
+                if(self.openCallback){
+                    self.openCallback();
+                }
             });
 
             this.dialog.on('hidden.bs.modal', function (e) {
                 self.$emit('closed');
+                if(self.closeCallback){
+                    self.closeCallback();
+                }
             });
         },
 
@@ -92,17 +102,17 @@
             },
 
             open(callback){
-                this.dialog.modal('show');
                 if(callback){
-                    callback();
+                    this.openCallback = callback;
                 }
+                this.dialog.modal('show');
             },
 
             close(callback){
-                this.dialog.modal('hide');
                 if(callback){
-                    callback();
+                    this.closeCallback = callback;
                 }
+                this.dialog.modal('hide');
             }
         }
     }
