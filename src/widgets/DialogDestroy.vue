@@ -149,13 +149,19 @@
                 this.$emit('destroy');
             },
 
-            open(){
+            open(callback){
                 this.status = null;
                 this.dialog.modal('show');
+                if(callback){
+                    callback();
+                }
             },
 
-            close(){
+            close(callback){
                 this.dialog.modal('hide');
+                if(callback){
+                    callback();
+                }
             }
         }
     }
