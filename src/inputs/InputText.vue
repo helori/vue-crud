@@ -11,6 +11,7 @@
         :placeholder="placeholder"
         v-model="dataValue"
         :autofocus="autofocus"
+        :class="'text-' + textAlign"
         
         @input=""
         @change="updateValue($event.target.value)"

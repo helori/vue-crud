@@ -43,13 +43,6 @@
                 debounceDelay: 1000
             };
         },
-        props: {
-            textAlign: {
-                type: String,
-                default: 'left',
-                required: false
-            }
-        },
         watch: {
             value: {
                 handler: function (val) {

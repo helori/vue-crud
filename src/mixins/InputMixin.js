@@ -39,6 +39,11 @@ export default {
             type: Boolean,
             default: false,
             required: false
+        },
+        textAlign: {
+            type: String,
+            default: 'left',
+            required: false
         }
     },
 

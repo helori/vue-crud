@@ -10,6 +10,7 @@
         :placeholder="placeholder"
         pattern=".{10}"
         v-model="dataValue"
+        :class="'text-' + textAlign"
         
         @input=""
         @change="updateValue($event.target.value)"
