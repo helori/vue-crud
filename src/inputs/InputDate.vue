@@ -50,6 +50,9 @@
                 }
             }
         },
+        mounted(){
+            $(this.$el).find('input').css('text-align', this.textAlign);
+        },
         methods: {
             formatUpdateValue(val) {
                 var d = moment(val).format('YYYY-MM-DD') + ' 00:00:00';

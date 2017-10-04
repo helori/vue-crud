@@ -9,6 +9,7 @@
         class="form-control"
         v-model="dataValue"
         :multiple="multiple"
+        :class="'text-' + textAlign"
 
         @input=""
         @change="updateValue($event.target.value)"
