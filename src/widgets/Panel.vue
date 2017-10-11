@@ -1,11 +1,11 @@
 <style scoped>
 .panel{
-    margin: 0 0 30px 0;
+    margin: 0;
 }
 </style>
 
 <template>
-    <div class="panel panel-default">
+    <div class="panel panel-default" :style="'margin-top:' + marginTop + 'px;' + 'margin-bottom:' + marginBottom + 'px;'">
         <div class="panel-heading" v-if="hasSlot('title')">
             <h4 class="panel-title">
                 <slot name="title"></slot>
@@ -28,6 +28,16 @@
             padding: {
                 type: Number,
                 default: 15,
+                required: false
+            },
+            marginTop: {
+                type: Number,
+                default: 0,
+                required: false
+            },
+            marginBottom: {
+                type: Number,
+                default: 30,
                 required: false
             }
         }
