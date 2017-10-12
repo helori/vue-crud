@@ -1,7 +1,6 @@
 <style scoped>
     textarea{
         resize: vertical;
-        min-height: 150px;
     }
 </style>
 
@@ -13,6 +12,7 @@
         :placeholder="placeholder"
         v-model="dataValue"
         :class="'text-' + textAlign"
+        :style="'min-height:' + minHeight + 'px'"
         
         @input=""
         @change="updateValue($event.target.value)"
@@ -25,6 +25,14 @@
 <script>
     import inputMixin from '../mixins/InputMixin.js'
     export default {
-        mixins: [inputMixin]
+        mixins: [inputMixin],
+
+        props: {
+            minHeight: {
+                type: Number,
+                required: false,
+                default: 150
+            }
+        }
     }
 </script>

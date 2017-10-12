@@ -108,7 +108,7 @@ export default {
 
                 // required to use v-model on the component :
                 var v = this.formatUpdateValue(value);
-                this.$emit('inputLive', v);
+                this.$emit('inputlive', v);
             }
         },
 
