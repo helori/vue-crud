@@ -95,6 +95,23 @@ export default {
             }
         },
 
+        updateValueLive(value) {
+            
+            if(this.validateValue(value))
+            {
+                var displayValue = this.formatDisplayValue(value);
+
+                // Replace the displayed value by the formatted one
+                if (displayValue !== value) {
+                    this.$refs.input.value = displayValue;
+                }
+
+                // required to use v-model on the component :
+                var v = this.formatUpdateValue(value);
+                this.$emit('inputLive', v);
+            }
+        },
+
         // To be overloaded :
         formatDisplayValue(value) {
             return value;
