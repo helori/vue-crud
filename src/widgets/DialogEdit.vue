@@ -37,7 +37,7 @@
 
                         <button type="button" class="btn btn-primary" tabindex="1"
                             @click="save"
-                            :disabled="status === 'pending' || status === 'success'">
+                            :disabled="status === 'pending'">
                             <i class="fa fa-spinner fa-spin" v-if="status === 'pending'"></i> {{ saveText }} 
                         </button>
                     </div>
@@ -97,7 +97,7 @@
             var self = this;
             this.dialog = $(this.$el).find('> .modal');
             this.dialog.on('shown.bs.modal', function (e) {
-                $(this).find('input').first().focus();
+                $(this).find('input, select, .btn').first().focus();
                 self.$emit('opened');
                 if(self.openCallback){
                     self.openCallback();
@@ -117,6 +117,11 @@
                     if(promise){
 
                         this.status = 'pending';
+
+                        // The catch() handler will be called only if there is no other catch() handler called before it.
+                        // (apromise may have multiple then() but only one catch())
+                        // To make sure it is called in this case, the first catch() handler should re-throw an error.
+                        // Otherwise, we shouldn't rely the status' value being "success" or "error"
 
                         promise.then(r => {
                             this.status = 'success';

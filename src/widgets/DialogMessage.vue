@@ -78,7 +78,7 @@
 
             this.dialog.on('shown.bs.modal', function (e) {
 
-                $(this).find('input').first().focus();
+                $(this).find('input, select, .btn').first().focus();
                 
                 self.$emit('opened');
 
