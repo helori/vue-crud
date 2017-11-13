@@ -34,7 +34,7 @@ export default {
         },
         errorsOrg: {
             handler: function () {
-                this.errors = _.clone(this.errorsOrg);
+                this.errors = _.cloneDeep(this.errorsOrg);
             },
             deep: true
         }
@@ -42,8 +42,7 @@ export default {
 
     methods: {
         setItem(item){
-            //console.log('setItem', this.itemOrg);
-            this.item = _.clone(this.itemOrg);
+            this.item = _.cloneDeep(item);
             this.afterRead();
         },
 
@@ -72,12 +71,7 @@ export default {
             }
             return null;
         },
-
-        /*refreshFromProps(){
-            this.item = _.clone(this.itemOrg);
-            this.errors = _.clone(this.errorsOrg);
-        },*/
-
+        
         // To be overloaded
         afterRead(){},
         afterUpdate(){}
