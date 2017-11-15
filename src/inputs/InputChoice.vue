@@ -6,9 +6,6 @@
     margin-top: 5px;
     white-space: normal;
 }
-.btn-column-1:{
-
-}
 </style>
 
 <template>
