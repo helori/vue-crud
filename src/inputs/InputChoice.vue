@@ -1,10 +1,13 @@
 <style scoped lang="scss">
 .choice-wrapper{
-    margin: 0 auto -5px auto;
+    margin: -5px auto 0 auto;
 }
 .btn{
-    margin-bottom: 5px;
+    margin-top: 5px;
     white-space: normal;
+}
+.btn-column-1:{
+
 }
 </style>
 
