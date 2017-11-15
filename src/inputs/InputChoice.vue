@@ -1,35 +1,35 @@
-<style scoped>
-.btn-cloud{
-    margin: 0 2.5px 5px 2.5px;
+<style scoped lang="scss">
+.choice-wrapper{
+    margin: 0 auto;
 }
-.btn-cloud-right{
-    margin: 0 0 5px 5px;
-}
-.btn-cloud-left{
-    margin: 0 5px 5px 0;
-}
-.btn-2{
-    width: 49%;
-}
-.btn-2:first-child{
-    margin: 0 1% 0 0;
-}
-.btn-2:last-child{
-    margin: 0 0 0 1%;
+.btn{
+    margin-bottom: 5px;
 }
 </style>
 
 <template>
     
-    <div :class="{'text-center': display === 'cloud', 'text-right': display === 'cloud-right'}">
-        <button 
-            v-for="option in options"
-            type="button"
-            class="btn"
-            :class="{'btn-primary': hasOption(option[optionValueKey]), 'btn-default': !hasOption(option[optionValueKey]), 'btn-block': display === 'column', 'btn-cloud': display === 'cloud', 'btn-cloud-right': display === 'cloud-right', 'btn-cloud-left': display === 'cloud-left', 'btn-2': display === 'column2'}"
-            @click="setOption(option[optionValueKey])">
-            {{ option[optionLabelKey] }}
-        </button>
+    <div class="choice-wrapper" :style="'width:' + width + '%'">
+        <div class="row narrow">
+            <div v-for="option in options" :key="option[optionValueKey]" class="col" :class="{
+                'col-sm-12': columns === 1, 
+                'col-sm-6': columns === 2, 
+                'col-sm-4': columns === 3, 
+                'col-sm-3': columns === 4
+            }">
+                <button 
+                    type="button"
+                    class="btn btn-block"
+                    :class="{
+                        'btn-primary': hasOption(option[optionValueKey]), 
+                        'btn-default': !hasOption(option[optionValueKey])
+                    }"
+                    @click="setOption(option[optionValueKey])">
+                    {{ option[optionLabelKey] }}
+                </button>
+            </div>
+        </div>
+                
     </div>
 
 </template>
@@ -54,14 +54,19 @@
                 type: String,
                 default: 'value'
             },
-            display: {
-                type: String,
-                default: 'cloud',
-                required: false
-            },
             multiple: {
                 type: Boolean,
                 default: false,
+                required: false
+            },
+            columns: {
+                type: Number,
+                default: 2,
+                required: false
+            },
+            width: {
+                type: Number,
+                default: 100,
                 required: false
             }
         },
