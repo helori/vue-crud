@@ -4,7 +4,7 @@
 }
 .btn{
     margin-bottom: 5px;
-    white-space: wrap;
+    white-space: normal;
 }
 </style>
 
