@@ -1,6 +1,6 @@
 <style scoped lang="scss">
 .choice-wrapper{
-    margin: 0 auto;
+    margin: 0 auto -5px auto;
 }
 .btn{
     margin-bottom: 5px;
