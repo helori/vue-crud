@@ -1,20 +1,16 @@
 <style scoped>
-    .form-group{
-        margin-bottom: 5px;
-    }
-    label{
-        display: block;
-    }
-    label.big{
-        font-size: 18px;
-        font-weight: 500;
-    }
+.form-group{
+    margin-bottom: 5px;
+}
+label{
+    display: block;
+}
 </style>
 
 <template>
     
     <div class="form-group" :class="{'has-error': error}">
-        <label :for="name" v-if="label !== null" v-html="label" :class="labelClass + ' ' + labelType"></label>
+        <label :for="name" v-if="label !== null" v-html="label" :style="'text-align: ' + labelAlign"></label>
         <div :class="{'input-group': suffix !== null}">
             <slot name="input"></slot>
             <div class="input-group-addon" v-if="suffix !== null">{{ suffix }}</div>
@@ -33,14 +29,9 @@
                 default: null,
                 required: false
             },
-            labelClass: {
+            labelAlign: {
                 type: String,
                 default: 'text-left',
-                required: false
-            },
-            labelType: {
-                type: String,
-                default: 'normal',
                 required: false
             },
             name: {

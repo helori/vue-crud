@@ -1,7 +1,7 @@
 <style scoped>
-    .form-group{
-        margin-bottom: 5px;
-    }
+.form-group{
+    margin-bottom: 5px;
+}
 </style>
 
 <template>
