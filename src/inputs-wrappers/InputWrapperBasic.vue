@@ -1,6 +1,6 @@
 <style scoped>
 .form-group{
-    margin-bottom: 5px;
+    margin: 0 auto 5px auto;
 }
 label{
     display: block;
@@ -9,7 +9,7 @@ label{
 
 <template>
     
-    <div class="form-group" :class="{'has-error': error}">
+    <div class="form-group" :class="{'has-error': error}" :style="'width:' + width">
         <label :for="name" v-if="label !== null" v-html="label" :style="'text-align: ' + labelAlign"></label>
         <div :class="{'input-group': suffix !== null}">
             <slot name="input"></slot>
@@ -50,6 +50,11 @@ label{
                 type: String,
                 default: null,
                 required: false  
+            },
+            width: {
+                type: String,
+                required: false,
+                default: '100%'
             }
         },
     }

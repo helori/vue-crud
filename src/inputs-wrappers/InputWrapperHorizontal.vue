@@ -1,4 +1,7 @@
 <style scoped>
+.form-horizontal{
+    margin: 0 auto;
+}
 .form-group{
     margin-bottom: 5px;
 }
@@ -6,7 +9,7 @@
 
 <template>
     
-    <div class="form-horizontal">
+    <div class="form-horizontal" :style="'width:' + width">
         <div class="form-group" :class="{'has-error': error}">
             <label :for="name" :class="'control-label col col-sm-' + labelColumns" :style="'text-align: ' + labelAlign" v-if="!inverted">{{ label }}</label>
             <div :class="'col col-sm-' + (12 - labelColumns)">
@@ -61,6 +64,11 @@
                 type: String,
                 default: null,
                 required: false  
+            },
+            width: {
+                type: String,
+                required: false,
+                default: '100%'
             }
         },
     }
