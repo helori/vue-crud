@@ -11,7 +11,7 @@
         :multiple="multiple"
         :class="'text-' + textAlign"
 
-        @input=""
+        @input="updateValueLive($event.target.value)"
         @change="updateValue($event.target.value)"
         @keyup.enter="updateValue($event.target.value)"
         @focus="hasFocus = true"

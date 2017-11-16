@@ -14,7 +14,7 @@
         :class="'text-' + textAlign"
         :style="'min-height:' + minHeight + 'px'"
         
-        @input=""
+        @input="updateValueLive($event.target.value)"
         @change="updateValue($event.target.value)"
         @keyup.enter="updateValue($event.target.value)"
         @focus="hasFocus = true"

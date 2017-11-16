@@ -20,6 +20,11 @@ export default {
         error: {
             default: null
         },
+        liveUpdate: {
+            type: Boolean,
+            default: false,
+            required: false
+        },
         placeholder: { 
             type: String,
             default: '',
@@ -92,22 +97,16 @@ export default {
                 // required to use v-model on the component :
                 var v = this.formatUpdateValue(value);
                 this.$emit('input', v);
+
+                return v;
             }
         },
 
         updateValueLive(value) {
             
-            if(this.validateValue(value))
-            {
-                var displayValue = this.formatDisplayValue(value);
+            if(this.liveUpdate && this.validateValue(value)){
 
-                // Replace the displayed value by the formatted one
-                if (displayValue !== value) {
-                    this.$refs.input.value = displayValue;
-                }
-
-                // required to use v-model on the component :
-                var v = this.formatUpdateValue(value);
+                var v = this.updateValue(value);
                 this.$emit('inputlive', v);
             }
         },
