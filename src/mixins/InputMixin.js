@@ -4,7 +4,7 @@ export default {
             dataValue: this.value,
             uniqId: Math.random().toString(36).substring(7) + '_',
             hasFocus: false,
-            debounceDelay: 0
+            debounceDelay: 200
         };
     },
 
@@ -75,14 +75,7 @@ export default {
     },
 
     methods: {
-        updateValueDebounce(value) {
-            var self = this;
-            var debounceUpdate = _.debounce(function() {
-                self.updateValue(value);
-            }, self.debounceDelay);
-            debounceUpdate();
-        },
-
+        
         updateValue(value) {
             
             if(this.validateValue(value))
@@ -106,9 +99,17 @@ export default {
             
             if(this.liveUpdate && this.validateValue(value)){
 
-                var v = this.updateValue(value);
-                this.$emit('inputlive', v);
+                this.updateValueDebounce(value);
             }
+        },
+
+        updateValueDebounce(value) {
+            var self = this;
+            var debounceUpdate = _.debounce(function() {
+                var v = self.updateValue(value);
+                self.$emit('inputlive', v);
+            }, self.debounceDelay);
+            debounceUpdate();
         },
 
         // To be overloaded :
