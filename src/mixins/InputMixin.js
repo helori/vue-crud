@@ -4,7 +4,7 @@ export default {
             dataValue: this.value,
             uniqId: Math.random().toString(36).substring(7) + '_',
             hasFocus: false,
-            debounceDelay: 200
+            debounceDelay: 500
         };
     },
 
@@ -95,22 +95,16 @@ export default {
             }
         },
 
-        updateValueLive(value) {
-            
+        updateValueLive: _.debounce(function (value) {
+
             if(this.liveUpdate && this.validateValue(value)){
 
-                this.updateValueDebounce(value);
-            }
-        },
+                var v = this.updateValue(value);
+                this.$emit('inputlive', v);
 
-        updateValueDebounce(value) {
-            var self = this;
-            var debounceUpdate = _.debounce(function() {
-                var v = self.updateValue(value);
-                self.$emit('inputlive', v);
-            }, self.debounceDelay);
-            debounceUpdate();
-        },
+            }
+
+        }, 500),
 
         // To be overloaded :
         formatDisplayValue(value) {
