@@ -36,8 +36,26 @@
                 dataValue: {
                     start: this.value && this.value.start ? moment(this.value.start) : moment(),
                     end: this.value && this.value.end ? moment(this.value.end) : moment(),
-                }
+                },
+                pickerElt: null
             };
+        },
+
+        props: {
+            ranges: {
+                type: Object,
+                required: false,
+                default(){
+                    return {};
+                }
+            },
+            locale: {
+                type: Object,
+                required: false,
+                default(){
+                    return {};
+                }
+            }
         },
 
         watch: {
@@ -48,6 +66,11 @@
                         end: val && val.end ? moment(val.end) : moment(),
                     };
                 }
+            },
+            ranges: {
+                handler(){
+
+                }
             }
         },
 
@@ -57,67 +80,6 @@
 
             self.$nextTick(function () {
 
-                var ranges = {
-                    '7 derniers jours': [
-                        moment().subtract(6, 'days'),
-                        moment()
-                    ],
-                    '30 derniers jours': [
-                        moment().subtract(30, 'days'),
-                        moment()
-                    ],
-                    'Ce mois-ci': [
-                        moment().startOf('month'),
-                        moment().endOf('month')
-                    ],
-                    'Le mois dernier': [
-                        moment().subtract(1, 'month').startOf('month'),
-                        moment().subtract(1, 'month').endOf('month')
-                    ]
-                };
-
-                for(var year = moment().year(); year >= 2015; --year){
-                    ranges['Exercice ' + year] = [
-                        moment(year + '0101'),
-                        moment(year + '1231'),
-                    ];
-                }
-
-                var locale = {
-                    "format": "DD/MM/YYYY",
-                    "separator": " au ",
-                    "applyLabel": "Appliquer",
-                    "cancelLabel": "Annuler",
-                    "fromLabel": "Du",
-                    "toLabel": "Au",
-                    "customRangeLabel": "Personnalisé...",
-                    "weekLabel": "W",
-                    "daysOfWeek": [
-                        "Dim",
-                        "Lun",
-                        "Mar",
-                        "Mer",
-                        "Jeu",
-                        "Ven",
-                        "Sam"
-                    ],
-                    "monthNames": [
-                        "Janvier",
-                        "Février",
-                        "Mars",
-                        "Avril",
-                        "Mai",
-                        "Juin",
-                        "Juillet",
-                        "Août",
-                        "Septembre",
-                        "Octobre",
-                        "Novembre",
-                        "Décembre"
-                    ],
-                    "firstDay": 1
-                };
-
                 var options = {
                     startDate: self.dataValue.start,
                     endDate: self.dataValue.end,
@@ -125,11 +87,13 @@
                     alwaysShowCalendars: false,
                     showDropdowns: true,
                     autoApply: true,
-                    ranges: ranges,
-                    locale: locale
+                    ranges: this.ranges,
+                    locale: this.locale
                 };
 
-                $(self.$el).find('.date-range').daterangepicker(options).on('apply.daterangepicker', function (e, picker) {
+                self.pickerElt = $(self.$el).find('.date-range');
+
+                self.pickerElt.daterangepicker(options).on('apply.daterangepicker', function (e, picker) {
 
                     self.updateValue({
                         start: picker.startDate,
