@@ -30,12 +30,20 @@
                     </div>
 
                     <!-- Modal Actions -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal" tabindex="0" @click="cancel">
+                    <div class="modal-footer" v-if="showSave || showCancel">
+                        <button type="button" 
+                            class="btn btn-default" 
+                            data-dismiss="modal" 
+                            tabindex="0" 
+                            @click="cancel" 
+                            v-if="showCancel">
                             {{ cancelText }}
                         </button>
 
-                        <button type="button" class="btn btn-primary" tabindex="1"
+                        <button type="button" 
+                            class="btn btn-primary" 
+                            tabindex="1"
+                            v-if="showSave"
                             @click="save"
                             :disabled="status === 'pending'">
                             <i class="fa fa-spinner fa-spin" v-if="status === 'pending'"></i> {{ saveText }} 
@@ -90,6 +98,16 @@
                 type: Number,
                 required: false,
                 default: 600
+            },
+            showSave: {
+                type: Boolean,
+                required: false,
+                default: true
+            },
+            showCancel: {
+                type: Boolean,
+                required: false,
+                default: true
             }
         },
 
