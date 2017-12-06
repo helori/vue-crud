@@ -167,6 +167,7 @@
                 if(callback){
                     this.openCallback = callback;
                 }
+                this.checker = null;
                 this.status = null;
                 this.dialog.modal('show');
             },
