@@ -14,9 +14,9 @@
         v-model="dataValue"
         :class="'text-' + textAlign"
 
-        @input="updateValueLive($event.target.value)"
-        @change="updateValue($event.target.value)"
-        @keyup.enter="updateValue($event.target.value)"
+        @input="updateValueLive($event.target.valueAsNumber)"
+        @change="updateValue($event.target.valueAsNumber)"
+        @keyup.enter="updateValue($event.target.valueAsNumber)"
         @focus="hasFocus = true"
         @blur="hasFocus = false" />
 </template>

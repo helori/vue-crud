@@ -7,9 +7,11 @@
   },
   "dependencies": {
     "bootstrap-sass": "^3.3.7",
+    "daterangepicker": "^2.1.25",
     "font-awesome": "^4.7.0",
     "jquery": "^3.1.1",
     "lodash": "^4.17.4",
+    "numeral": "^2.0.6",
     "tinymce": "4.x",
     "vue": "2.x",
     "vuejs-datepicker": "^0.9.4",

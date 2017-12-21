@@ -45,7 +45,7 @@
                             tabindex="1"
                             v-if="showSave"
                             @click="save"
-                            :disabled="status === 'pending'">
+                            :disabled="disabled || status === 'pending'">
                             <i class="fa fa-spinner fa-spin" v-if="status === 'pending'"></i> {{ saveText }} 
                         </button>
                     </div>
@@ -83,6 +83,11 @@
             errors: {
                 required: false,
                 default: null
+            },
+            disabled: {
+                type: Boolean,
+                required: false,
+                default: false
             },
             saveText: {
                 type: String,

@@ -6,6 +6,9 @@
     margin-top: 5px;
     white-space: normal;
 }
+.col-sm-2-4{
+    width: 20%;
+}
 </style>
 
 <template>
@@ -16,7 +19,8 @@
                 'col-sm-12': columns === 1, 
                 'col-sm-6': columns === 2, 
                 'col-sm-4': columns === 3, 
-                'col-sm-3': columns === 4
+                'col-sm-3': columns === 4,
+                'col-sm-2-4': columns === 5,
             }">
                 <button 
                     type="button"
