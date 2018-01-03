@@ -14,6 +14,8 @@
         <div class="panel-body" :style="'padding: ' + padding + 'px'">
             <slot name="body"></slot>
         </div>
+
+        <slot name="table"></slot>
     </div>
 </template>
 
