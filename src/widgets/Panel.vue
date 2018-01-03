@@ -11,11 +11,11 @@
                 <slot name="title"></slot>
             </h4>
         </div>
-        <div class="panel-body" :style="'padding: ' + padding + 'px'">
+        <div class="panel-body" :style="'padding: ' + padding + 'px'" v-if="hasSlot('body')">
             <slot name="body"></slot>
         </div>
 
-        <slot name="table"></slot>
+        <slot name="table" v-if="hasSlot('table')"></slot>
     </div>
 </template>
 
