@@ -11,10 +11,11 @@ label{
     
     <div class="form-group" :class="{'has-error': error}" :style="'width:' + width">
         <label :for="name" v-if="label !== null" v-html="label" :style="'text-align: ' + labelAlign"></label>
-        <div :class="{'input-group': suffix !== null}">
+        <div class="input-group" v-if="suffix !== null">
             <slot name="input"></slot>
             <div class="input-group-addon" v-if="suffix !== null">{{ suffix }}</div>
         </div>
+        <slot name="input" v-else></slot>
         <p class="help-block" v-if="help">{{ help }}</p>
         <p class="help-block" v-if="error">{{ error }}</p>
     </div>

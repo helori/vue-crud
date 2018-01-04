@@ -13,10 +13,11 @@
         <div class="form-group" :class="{'has-error': error}">
             <label :for="name" :class="'control-label col col-sm-' + labelColumns" :style="'text-align: ' + labelAlign" v-if="!inverted">{{ label }}</label>
             <div :class="'col col-sm-' + (12 - labelColumns)">
-                <div :class="{'input-group': suffix !== null}">
+                <div class="input-group" v-if="suffix !== null">
                     <slot name="input"></slot>
                     <div class="input-group-addon" v-if="suffix !== null">{{ suffix }}</div>
                 </div>
+                <slot name="input" v-else></slot>
                 <p class="help-block" v-if="help">{{ help }}</p>
                 <p class="help-block" v-if="error">{{ error }}</p>
             </div>
