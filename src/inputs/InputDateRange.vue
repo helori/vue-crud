@@ -1,7 +1,7 @@
 <style scoped lang="scss">
 .date-range-wrapper{
     //display: inline-block;
-    min-width: 260px;
+    //min-width: 260px;
     .form-control{
         width: 100%;
         text-align: center;
