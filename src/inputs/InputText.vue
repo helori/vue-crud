@@ -12,6 +12,7 @@
         v-model="dataValue"
         :autofocus="autofocus"
         :class="'text-' + textAlign"
+        :disabled="disabled"
         
         @input="updateValueLive($event.target.value)"
         @change="updateValue($event.target.value)"

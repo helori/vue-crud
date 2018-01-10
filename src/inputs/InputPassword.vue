@@ -10,6 +10,7 @@
         :placeholder="placeholder"
         v-model="dataValue"
         :class="'text-' + textAlign"
+        :disabled="disabled"
 
         @input="updateValueLive($event.target.value)"
         @change="updateValue($event.target.value)"
