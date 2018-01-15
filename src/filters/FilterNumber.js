@@ -52,5 +52,5 @@ Vue.filter('currency', function (value, decimals, symbol) {
             format += '0';
         }
     }
-    return numeral(value).format(format) + symbol;
+    return numeral(value).format(format) + ' ' + symbol;
 });
