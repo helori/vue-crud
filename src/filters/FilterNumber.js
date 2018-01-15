@@ -34,3 +34,23 @@ Vue.filter('number', function (value, decimals) {
     }
     return numeral(value).format(format);
 });
+
+Vue.filter('currency', function (value, decimals, symbol) {
+    var format = '0,0';
+
+    if(!decimals){
+        decimals = 2;
+    }
+
+    if(!symbol){
+        symbol = '€';
+    }
+
+    if(decimals > 0){
+        format += '.';
+        for(var i=0; i<parseInt(decimals); ++i){
+            format += '0';
+        }
+    }
+    return numeral(value).format(format) + symbol;
+});
