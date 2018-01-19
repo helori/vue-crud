@@ -20,7 +20,7 @@ Vue.filter('diffInDays', function (dateFrom, dateTo) {
     if(dateFrom && dateTo){
         var dateFrom = moment(dateFrom, "YYYY-MM-DD hh:mm:ss");
         var dateTo = moment(dateTo, "YYYY-MM-DD hh:mm:ss");
-        var days = dateTo.diff(dateFrom, 'days')
+        var days = dateTo.diff(dateFrom, 'days');
         return days;
     }else{
         return 0;
