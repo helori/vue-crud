@@ -6,10 +6,9 @@
   <div>
     <select
         :id="name"
-        class="form-control"
+        :class="'form-control text-' + textAlign + (classes ? ' ' + classes + '')"
         v-model="dataValue"
         :multiple="multiple"
-        :class="'text-' + textAlign"
         :disabled="disabled"
         
         @input="updateValueLive($event.target.value)"

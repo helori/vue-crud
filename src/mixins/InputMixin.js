@@ -49,6 +49,11 @@ export default {
             type: String,
             default: 'left',
             required: false
+        },
+        classes: {
+            type: String,
+            default: '',
+            required: false
         }
     },
 

@@ -9,10 +9,9 @@
         :min="min"
         :max="max"
         :step="step"
-        class="form-control"
+        :class="'form-control text-' + textAlign + (classes ? ' ' + classes + '')"
         :placeholder="placeholder"
         v-model="dataValue"
-        :class="'text-' + textAlign"
         :disabled="disabled"
 
         @input="updateValueLive($event.target.valueAsNumber)"

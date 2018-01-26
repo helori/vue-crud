@@ -6,11 +6,10 @@
     <input
         type="tel"
         :id="name"
-        class="form-control"
+        :class="'form-control text-' + textAlign + (classes ? ' ' + classes + '')"
         :placeholder="placeholder"
         pattern=".{10}"
         v-model="dataValue"
-        :class="'text-' + textAlign"
         :disabled="disabled"
         
         @input="updateValueLive($event.target.value)"

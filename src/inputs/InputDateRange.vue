@@ -12,7 +12,7 @@
 <template>
 
     <div class="date-range-wrapper">
-        <input class="date-range form-control">
+        <input :class="'date-range form-control' + (classes ? ' ' + classes + '')">
     </div>
     
 </template>

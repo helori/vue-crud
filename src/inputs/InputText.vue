@@ -7,11 +7,10 @@
     <input
         type="text"
         :id="name"
-        class="form-control"
+        :class="'form-control text-' + textAlign + (classes ? ' ' + classes + '')"
         :placeholder="placeholder"
         v-model="dataValue"
         :autofocus="autofocus"
-        :class="'text-' + textAlign"
         :disabled="disabled"
         
         @input="updateValueLive($event.target.value)"

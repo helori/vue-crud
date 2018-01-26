@@ -6,10 +6,9 @@
     <input 
         type="password"
         :id="name"
-        class="form-control"
+        :class="'form-control text-' + textAlign + (classes ? ' ' + classes + '')"
         :placeholder="placeholder"
         v-model="dataValue"
-        :class="'text-' + textAlign"
         :disabled="disabled"
 
         @input="updateValueLive($event.target.value)"

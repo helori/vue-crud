@@ -8,10 +8,9 @@
     
     <textarea
         :id="name"
-        class="form-control"
+        :class="'form-control text-' + textAlign + (classes ? ' ' + classes + '')"
         :placeholder="placeholder"
         v-model="dataValue"
-        :class="'text-' + textAlign"
         :style="'min-height:' + minHeight + 'px'"
         :disabled="disabled"
         
