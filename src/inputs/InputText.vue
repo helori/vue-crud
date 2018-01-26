@@ -7,7 +7,7 @@
     <input
         type="text"
         :id="name"
-        :class="'form-control text-' + textAlign + (classes ? ' ' + classes + '')"
+        :class="'form-control text-' + textAlign + (classes ? ' ' + classes : '')"
         :placeholder="placeholder"
         v-model="dataValue"
         :autofocus="autofocus"

@@ -6,7 +6,7 @@
     <input
         type="tel"
         :id="name"
-        :class="'form-control text-' + textAlign + (classes ? ' ' + classes + '')"
+        :class="'form-control text-' + textAlign + (classes ? ' ' + classes : '')"
         :placeholder="placeholder"
         pattern=".{10}"
         v-model="dataValue"

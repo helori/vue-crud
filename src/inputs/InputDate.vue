@@ -16,7 +16,7 @@
     <datepicker 
         v-model="dataValue"
         format="dd MMMM yyyy"
-        :class="'form-control' + (classes ? ' ' + classes + '')"
+        :class="'form-control text-' + textAlign + (classes ? ' ' + classes : '')"
         :class="'text-' + textAlign"
         :full-month-name="true"
         :monday-first="true"

@@ -12,7 +12,7 @@
 <template>
 
     <div class="date-range-wrapper">
-        <input :class="'date-range form-control' + (classes ? ' ' + classes + '')">
+        <input :class="'form-control date-range text-' + textAlign + (classes ? ' ' + classes : '')">
     </div>
     
 </template>

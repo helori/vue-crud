@@ -6,7 +6,7 @@
   <div>
     <select
         :id="name"
-        :class="'form-control text-' + textAlign + (classes ? ' ' + classes + '')"
+        :class="'form-control text-' + textAlign + (classes ? ' ' + classes : '')"
         v-model="dataValue"
         :multiple="multiple"
         :disabled="disabled"

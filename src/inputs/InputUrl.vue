@@ -6,7 +6,7 @@
     <input
         type="url"
         :id="name"
-        :class="'form-control text-' + textAlign + (classes ? ' ' + classes + '')"
+        :class="'form-control text-' + textAlign + (classes ? ' ' + classes : '')"
         :placeholder="placeholder"
         v-model="dataValue"
         :disabled="disabled"
