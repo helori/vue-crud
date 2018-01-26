@@ -9,6 +9,10 @@
     height: 30px;
     line-height: 30px;
 }
+.vdp-datepicker.form-control.input-sm input{
+    height: 24px;
+    line-height: 24px;
+}
 </style>
 
 <template>
