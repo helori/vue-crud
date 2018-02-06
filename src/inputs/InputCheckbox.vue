@@ -95,9 +95,11 @@
                 :required="required" 
                 :disabled="disabled"
                 v-model="dataValue" 
+                :true-value="true"
+                :false-value="false"
                 @focus="hasFocus = true"
                 @blur="hasFocus = false"
-                @input="updateValue($event.target.checked)">
+                @change="updateValue($event.target.checked)">
 
             <div class="control">
                 <div class="cursor"></div>
