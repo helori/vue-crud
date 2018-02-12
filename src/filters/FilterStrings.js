@@ -32,3 +32,32 @@ Vue.filter('siret', function (siret) {
 		return '';
 	}
 });
+
+Vue.filter('pluck', function (items, key) {
+    if(items.constructor === Array){
+        var results = [];
+        _.forEach(items, function(item){
+            if(typeof item[key] !== 'undefined'){
+                results.push(item[key]);
+            }else{
+                throw('Missing key ' + key + ' to "pluck" data');
+            }
+        });
+        return results;
+    }else{
+        throw('Could not "pluck" non-array data');
+    }
+});
+
+Vue.filter('implode', function (items, separator) {
+    if(items.constructor === Array){
+        return items.join(separator);
+    }else{
+        throw('Could not "implode" non-array data');
+    }
+});
+
+Vue.filter('nl2br', function (str, is_xhtml) {
+    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
+    return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
+});
