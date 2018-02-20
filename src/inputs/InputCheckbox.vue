@@ -62,7 +62,7 @@
     }
   
     .checkbox-wrapper.checked label .control{
-        background: #f56857;
+        background: #24445C;
     }
     .checkbox-wrapper.checked label .control .cursor{
         left: 17px;
