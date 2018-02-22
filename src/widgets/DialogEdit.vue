@@ -78,7 +78,7 @@
                 required: true
             },
             promise: {
-                required: true
+                required: false
             },
             errors: {
                 required: false,
