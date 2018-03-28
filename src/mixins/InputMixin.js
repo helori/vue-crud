@@ -82,9 +82,10 @@ export default {
     methods: {
         
         updateValue(value) {
-            
+
             if(this.validateValue(value))
             {
+
                 var displayValue = this.formatDisplayValue(value);
 
                 // Replace the displayed value by the formatted one

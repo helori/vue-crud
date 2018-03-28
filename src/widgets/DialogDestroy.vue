@@ -9,58 +9,61 @@
 
 <template>
 
-    <div>
+    <div class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document" :class="{
+            'modal-lg': size === 'lg',
+            'modal-sm': size === 'sm',
+        }">
+            <div class="modal-content">
 
-        <div class="modal fade modal-destroy"tabindex="-1" role="dialog">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    
-                    <div class="modal-header">
-                        <button type="button " class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title">
-                            {{ title }}
-                        </h4>
-                    </div>
-                    
-                    <div class="modal-body">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ title }}</h5>
+                    <button type="button " class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                
+                <div class="modal-body">
 
-                        <p class="message" v-html="message" v-if="message"></p>
+                    <p class="message" v-html="message" v-if="message"></p>
 
-                        <slot name="body"></slot>
+                    <slot name="body"></slot>
 
-                        <input-wrapper-horizontal 
-                            v-if="checkerTitle"
-                            name="destroy-checker"
-                            :label="checkerTitle">
-                            <div slot="input">
-                                <input-text
-                                    v-model="checker"
-                                    name="destroy-checker">
-                                </input-text>
-                            </div>
-                        </input-wrapper-horizontal>
+                    <input-wrapper
+                        layout="horizontal" 
+                        v-if="checkerTitle"
+                        name="destroy-checker"
+                        :label="checkerTitle">
+                        <template slot="input">
+                            <input-text
+                                v-model="checker"
+                                name="destroy-checker">
+                            </input-text>
+                        </template>
+                    </input-wrapper>
 
-                        <div class="alert alert-danger text-center" v-if="errors">
-                            {{ errors.message }}
-                        </div>
-
-                    </div>
-                    
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ cancelText }} </button>
-
-                        <button type="button" class="btn btn-danger" 
-                            @click="destroy"
-                            :disabled="disabled || status === 'pending'">
-                            <i class="fa fa-spinner fa-spin" v-if="status === 'pending'"></i> {{ destroyText }} 
-                        </button>
+                    <div class="alert alert-danger text-center" v-if="errors">
+                        {{ errors.message }}
                     </div>
 
                 </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        {{ cancelText }}
+                    </button>
+
+                    <button type="button" class="btn btn-danger" 
+                        @click="destroy"
+                        :disabled="disabled || status === 'pending'">
+                        <i class="fa fa-spinner fa-spin" v-if="status === 'pending'"></i> {{ destroyText }} 
+                    </button>
+                </div>
+
             </div>
         </div>
-
     </div>
+
 </template>
 
 <script>
@@ -115,11 +118,16 @@
                 required: false,
                 default: 'Cancel'
             },
+            size: { // 'lg', 'sm'
+                type: String,
+                required: false,
+                default: ''
+            },
         },
 
         mounted(){
             var self = this;
-            this.dialog = $(this.$el).find('> .modal-destroy');
+            this.dialog = $(this.$el);
             this.dialog.on('shown.bs.modal', function (e) {
                 $(this).find('input, select, .btn').first().focus();
                 self.$emit('opened');
@@ -164,6 +172,7 @@
             },
 
             open(callback){
+                console.log('open');
                 if(callback){
                     this.openCallback = callback;
                 }

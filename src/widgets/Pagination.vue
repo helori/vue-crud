@@ -9,42 +9,42 @@ nav{
 
 <template>
     <nav aria-label="Page navigation" v-show="pagination.total > pagination.per_page">
-        <ul class="pagination">
-            <li v-if="pagination.current_page == 1" class="disabled">
-                <span>
-                    <span aria-hidden="true">&laquo;</span>
-                </span>
-            </li>
-            <li v-else>
-                <a @click="setPage(pagination.current_page - 1)" aria-label="Previous">
+        <ul class="pagination" :class="classes">
+            <li class="page-item disabled" v-if="pagination.current_page == 1">
+                <a class="page-link">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
             </li>
-            <li>
-                <a @click="setPage(1)" v-if="pagination.current_page >= 4">1</a>
+            <li class="page-item" v-else>
+                <a class="page-link" @click="setPage(pagination.current_page - 1)" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
             </li>
-            <li class="disabled" v-if="pagination.current_page >= 5">
-                <span>...</span>
+            <li class="page-item">
+                <a class="page-link" @click="setPage(1)" v-if="pagination.current_page >= 4">1</a>
             </li>
-            <li v-for="p in pagination.last_page" 
+            <li class="page-item disabled" v-if="pagination.current_page >= 5">
+                <a class="page-link">...</a>
+            </li>
+            <li class="page-item" v-for="p in pagination.last_page" 
                 :class="{'active': p === pagination.current_page}"
                 v-if="p >= pagination.current_page - 2 && p <= pagination.current_page + 2">
-                <a @click="setPage(p)" v-if="p !== pagination.current_page">{{ p }}</a>
-                <span v-else>{{ p }}</span>
+                <a class="page-link" @click="setPage(p)" v-if="p !== pagination.current_page">{{ p }}</a>
+                <a class="page-link" v-else>{{ p }}</a>
             </li>
-            <li class="disabled" v-if="pagination.current_page <= pagination.last_page - 4">
-                <span>...</span>
+            <li class="page-item disabled" v-if="pagination.current_page <= pagination.last_page - 4">
+                <a class="page-link">...</a>
             </li>
-            <li>
-                <a @click="setPage(pagination.last_page)" v-if="pagination.current_page <= pagination.last_page - 3">{{ pagination.last_page }}</a>
+            <li class="page-item">
+                <a class="page-link" @click="setPage(pagination.last_page)" v-if="pagination.current_page <= pagination.last_page - 3">{{ pagination.last_page }}</a>
             </li>
-            <li v-if="pagination.current_page == pagination.last_page" class="disabled">
-                <span>
+            <li class="page-item disabled" v-if="pagination.current_page == pagination.last_page">
+                <a class="page-link">
                     <span aria-hidden="true">&raquo;</span>
-                </span>
+                </a>
             </li>
-            <li v-else>
-                <a @click="setPage(pagination.current_page + 1)" aria-label="Next">
+            <li class="page-item" v-else>
+                <a class="page-link" @click="setPage(pagination.current_page + 1)" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
             </li>
@@ -58,6 +58,11 @@ nav{
             pagination: {
                 type: Object,
                 required: true
+            },
+            classes: {
+                type: String,
+                required: false,
+                default: ''
             }
         },
 

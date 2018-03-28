@@ -2,8 +2,7 @@
     
 </style>
 
-<template>
-  <div>
+<template>  
     <select
         :id="name"
         :class="'form-control text-' + textAlign + (classes ? ' ' + classes : '')"
@@ -24,7 +23,6 @@
               <option v-for="option in group[groupItemsKey]" :value="option[optionValueKey]">{{ option[optionLabelKey] }}</option>
             </optgroup>
     </select>
-  </div>
 </template>
 
 <script>

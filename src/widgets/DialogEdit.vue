@@ -1,29 +1,30 @@
 <style scoped>
-.modal-dialog{
-    max-width: 95%;
-}
+
 </style>
 
 <template>
 
     <div>
 
-        <div class="modal fade"tabindex="-1" role="dialog">
-            <div class="modal-dialog" :style="'width: ' + width + 'px'">
+        <div class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document" :class="{
+                'modal-lg': size === 'lg',
+                'modal-sm': size === 'sm',
+            }">
                 <div class="modal-content">
                     
                     <div class="modal-header">
-                        <button type="button " class="close" data-dismiss="modal" aria-hidden="true" tabindex="-1">&times;</button>
-                        <h4 class="modal-title">
-                            {{ title }}
-                        </h4>
+                        <h5 class="modal-title">{{ title }}</h5>
+                        <button type="button " class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
                     
                     <div class="modal-body">
 
                         <slot name="body"></slot>
 
-                        <div class="alert alert-danger text-center" v-if="errors">
+                        <div class="alert alert-danger text-center mb-0 mt-3" v-if="errors">
                             {{ errors }}
                         </div>
                         
@@ -32,9 +33,8 @@
                     <!-- Modal Actions -->
                     <div class="modal-footer" v-if="showSave || showCancel">
                         <button type="button" 
-                            class="btn btn-default" 
+                            class="btn btn-secondary" 
                             data-dismiss="modal" 
-                            tabindex="0" 
                             @click="cancel" 
                             v-if="showCancel">
                             {{ cancelText }}
@@ -46,7 +46,10 @@
                             v-if="showSave"
                             @click="save"
                             :disabled="disabled || status === 'pending'">
-                            <i class="fa fa-spinner fa-spin" v-if="status === 'pending'"></i> {{ saveText }} 
+                            <span v-show="status === 'pending'">
+                                <i class="fa fa-spinner fa-spin"></i>
+                            </span>
+                            {{ saveText }} 
                         </button>
                     </div>
 
@@ -99,10 +102,10 @@
                 required: false,
                 default: 'Cancel'
             },
-            width: {
-                type: Number,
+            size: { // 'lg', 'sm'
+                type: String,
                 required: false,
-                default: 600
+                default: ''
             },
             showSave: {
                 type: Boolean,

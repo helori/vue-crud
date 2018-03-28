@@ -14,20 +14,14 @@
 <template>
     
     <div class="choice-wrapper" :style="'width:' + width + '%'">
-        <div class="row narrow">
-            <div v-for="option in options" :key="option[optionValueKey]" class="col" :class="{
-                'col-sm-12': columns === 1, 
-                'col-sm-6': columns === 2, 
-                'col-sm-4': columns === 3, 
-                'col-sm-3': columns === 4,
-                'col-sm-2-4': columns === 5,
-            }">
+        <div class="form-row">
+            <div v-for="option in options" :key="option[optionValueKey]" class="col" :class="columnClass">
                 <button 
                     type="button"
                     class="btn btn-block"
                     :class="{
                         'btn-primary': hasOption(option[optionValueKey]), 
-                        'btn-default': !hasOption(option[optionValueKey])
+                        'btn-outline-primary': !hasOption(option[optionValueKey])
                     }"
                     @click="setOption(option[optionValueKey])">
                     {{ option[optionLabelKey] }}
@@ -73,7 +67,11 @@
                 type: Number,
                 default: 100,
                 required: false
-            }
+            },
+            columnClass: {
+                type: String,
+                default: ''
+            },
         },
         methods: {
             setOption(opt){

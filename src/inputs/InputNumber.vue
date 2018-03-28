@@ -39,5 +39,10 @@
               default: 1
             }
         },
+        methods: {
+            validateValue(value) {
+                return !isNaN(value);
+            }
+        }
     }
 </script>
