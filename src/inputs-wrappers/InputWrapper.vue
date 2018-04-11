@@ -4,7 +4,7 @@
 
 <template>
     
-    <div class="form-group" :class="'mb-' + margin + (layout === 'horizontal' ? ' row' : '') + (classes ? ' ' + classes : '')">
+    <div class="form-group" :class="'mb-' + margin + (layout === 'horizontal' ? ' row align-items-center' : '') + (classes ? ' ' + classes : '')">
         
         <label :for="name" 
             v-if="label !== null" 
