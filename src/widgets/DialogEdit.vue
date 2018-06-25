@@ -22,10 +22,18 @@
                     
                     <div class="modal-body">
 
-                        <slot name="body"></slot>
+                        <div v-show="finished" class="text-success text-center py-5">
+                            <i class="fal fa-check-circle fa-5x"></i>
+                            <div class="font-weight-bold mt-4 h3">C'est bien enregistré !</div>
+                        </div>
 
-                        <div class="alert alert-danger text-center mb-0 mt-3" v-if="errors">
-                            {{ errors }}
+                        <div v-show="!finished">
+                            
+                            <slot name="body"></slot>
+
+                            <div class="alert alert-danger text-center mb-0 mt-3" v-if="errors">
+                                {{ errors }}
+                            </div>
                         </div>
                         
                     </div>
@@ -37,13 +45,13 @@
                             data-dismiss="modal" 
                             @click="cancel" 
                             v-if="showCancel">
-                            {{ cancelText }}
+                            {{ finished ? closeText : cancelText }} 
                         </button>
 
                         <button type="button" 
                             class="btn btn-primary" 
                             tabindex="1"
-                            v-if="showSave"
+                            v-if="showSave && !finished"
                             @click="save"
                             :disabled="disabled || status === 'pending'">
                             <span v-show="status === 'pending'">
@@ -68,6 +76,7 @@
             return{
                 dialog: null,
                 status: null,
+                finished: false,
 
                 closeCallback: null,
                 openCallback: null,
@@ -101,6 +110,11 @@
                 type: String,
                 required: false,
                 default: 'Cancel'
+            },
+            closeText: {
+                type: String,
+                required: false,
+                default: 'Close'
             },
             size: { // 'lg', 'sm'
                 type: String,
@@ -151,6 +165,7 @@
 
                         promise.then(r => {
                             this.status = 'success';
+                            this.finished = true;
                         }).catch(r => {
                             this.status = 'error';
                         });

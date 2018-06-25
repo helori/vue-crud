@@ -26,3 +26,18 @@ Vue.filter('diffInDays', function (dateFrom, dateTo) {
         return 0;
     }
 });
+
+Vue.filter('secondsToDuration', function (seconds) {
+    
+    var duration = moment.duration(seconds, 'seconds');
+
+    var h = duration.hours();
+    var m = duration.minutes();
+    var s = duration.seconds();
+
+    var h = h < 10 ? '0' + h : h;
+    var m = m < 10 ? '0' + m : m;
+    var s = s < 10 ? '0' + s : s;
+
+    return h + ':' + m + ':' + s;
+});
