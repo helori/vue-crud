@@ -188,6 +188,7 @@
                 if(callback){
                     this.openCallback = callback;
                 }
+                this.finished = false;
                 this.status = null;
                 this.dialog.modal('show');
             },
