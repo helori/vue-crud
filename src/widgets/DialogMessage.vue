@@ -26,7 +26,7 @@
                     </div>
 
                     <!-- Modal Actions -->
-                    <div class="modal-footer">
+                    <div class="modal-footer" v-show="canClose">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" @click="closed">
                             {{ closeText }}
                         </button>
@@ -62,6 +62,11 @@
                 type: String,
                 required: false,
                 default: 'Close'
+            },
+            canClose: {
+                type: Boolean,
+                required: false,
+                default: true
             },
             size: { // 'lg', 'sm'
                 type: String,
