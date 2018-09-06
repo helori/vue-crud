@@ -8,8 +8,8 @@ nav{
 </style>
 
 <template>
-    <nav aria-label="Page navigation" v-show="pagination.total > pagination.per_page" :class="classes">
-        <ul class="pagination">
+    <nav aria-label="Page navigation" v-show="pagination.total > pagination.per_page">
+        <ul class="pagination" :class="classes">
             <li class="page-item disabled" v-if="pagination.current_page == 1">
                 <a class="page-link" href="#">
                     <span aria-hidden="true">&laquo;</span>
