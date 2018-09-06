@@ -14,11 +14,8 @@
                         à {{ Math.min(pagination.current_page * pagination.per_page, pagination.total) }} 
                         sur {{ pagination.total }}
                     </span>
-                    <span v-else-if="!pagination || pagination.total === 0">
+                    <span v-else-if="pagination && pagination.total === 0">
                         Aucun résultat
-                    </span>
-                    <span v-else>
-                        Chargement...
                     </span>
                 </div>
             </div>
