@@ -8,7 +8,7 @@ nav{
 </style>
 
 <template>
-    <nav aria-label="Page navigation" v-show="pagination.total > pagination.per_page">
+    <nav aria-label="Page navigation" v-show="pagination.total > pagination.per_page" v-if="pagination !== null">
         <ul class="pagination" :class="classes">
             <li class="page-item disabled" v-if="pagination.current_page == 1">
                 <a class="page-link" href="#">
@@ -56,7 +56,6 @@ nav{
     export default {
         props: {
             pagination: {
-                type: Object,
                 required: true
             },
             classes: {
