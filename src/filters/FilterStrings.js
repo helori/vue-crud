@@ -61,3 +61,16 @@ Vue.filter('nl2br', function (str, is_xhtml) {
     var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
     return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
 });
+
+Vue.filter('phone', function (string) {
+        
+    if(typeof string === 'string' && string && string.length >= 12){
+        return string.slice(0, 3) 
+            + ' ' + string.slice(3, 4) 
+            + ' ' + string.slice(4, 6) 
+            + ' ' + string.slice(6, 8) 
+            + ' ' + string.slice(8, 10) 
+            + ' ' + string.slice(10);
+    }
+    return string;
+});
