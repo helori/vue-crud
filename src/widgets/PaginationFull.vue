@@ -4,7 +4,7 @@
 
 <template>
 
-    <div class="pagination-full" v-if="pagination !== null">
+    <div class="pagination-full" :class="classes" v-if="pagination !== null">
         <div class="row">
 
             <div class="col-sm">
@@ -41,6 +41,10 @@
         props: {
             pagination: {
                 required: true
+            },
+            classes: {
+                type: String,
+                required: false
             }
         },
 
