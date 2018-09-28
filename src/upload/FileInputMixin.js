@@ -15,7 +15,7 @@ export default {
         inputText: {
             type: String,
             required: false,
-            default: 'Choisir / Déposer des fichiers'
+            default: 'Browse / Drop files'
         },
         showIcon: {
             type: Boolean,
@@ -53,7 +53,7 @@ export default {
         window.addEventListener("dragover", function(e){
             e.preventDefault();
         }, false);
-
+        
         window.addEventListener("drop", function(e){
             e.preventDefault();
         }, false);

@@ -30,12 +30,12 @@ label{
 
 <script>
 
-    import DocumentInputMixin from './DocumentInputMixin.js'
+    import FileInputMixin from './FileInputMixin.js'
     
     export default {
 
         mixins: [
-            DocumentInputMixin
+            FileInputMixin
         ],
         
     }
