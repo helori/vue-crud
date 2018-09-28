@@ -92,7 +92,7 @@ export default {
                 self.upload_state = 'none';
                 self.upload_request = null;
                 self.upload_error = r.response ? r.response.data : r.data;
-
+                
             });
 
             return this.upload_promise;
