@@ -36,6 +36,8 @@ export default {
             this.upload_total = 0;
             this.upload_error = null;
 
+            let upload_url = config.upload_url ? config.upload_url : this.upload_url;
+
             var formData = new FormData();
 
             if(multiple){
@@ -63,7 +65,7 @@ export default {
             var request_config = {
                 
                 method: 'post',
-                url: this.upload_url,
+                url: upload_url,
                 name: 'Uploading files',
                 data: formData,
                 onUploadProgress: function(e) {
@@ -92,7 +94,7 @@ export default {
                 self.upload_state = 'none';
                 self.upload_request = null;
                 self.upload_error = r.response ? r.response.data : r.data;
-                
+
             });
 
             return this.upload_promise;
