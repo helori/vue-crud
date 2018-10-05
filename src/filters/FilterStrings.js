@@ -33,6 +33,15 @@ Vue.filter('siret', function (siret) {
 	}
 });
 
+Vue.filter('siren', function (siren) {
+    if(siren){
+        siren = siren.replace(/\s/g,'');
+        return siren.slice(0, 3) + ' ' + siren.slice(3, 6) + ' ' + siren.slice(6, 9);
+    }else{
+        return '';
+    }
+});
+
 Vue.filter('pluck', function (items, key) {
     if(items.constructor === Array){
         var results = [];
