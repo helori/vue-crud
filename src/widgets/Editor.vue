@@ -179,7 +179,7 @@
             launchInit(){
 
                 tinymce.init(this.tinyMCE_options).then(r => {
-                    console.log('Editor init success', this.uniqId, r);
+                    console.log('Editor init success', this.uniqId, this.tinyMCE_options, r);
                 }).catch(r => {
                     console.log('Editor init ERROR', this.uniqId, r);
                 });
