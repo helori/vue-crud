@@ -22,7 +22,7 @@
 
         data(){
             return{
-                dataValue: null,
+                dataValue: this.value ? this.value : null,
                 tinyMCE_options: {},
                 editor: null,
                 uniqId: Math.random().toString(36).substring(7) + '_',
