@@ -22,7 +22,7 @@
 
         data(){
             return{
-                dataValue: this.value ? this.value : '',
+                dataValue: null,
                 tinyMCE_options: {},
                 editor: null,
                 uniqId: Math.random().toString(36).substring(7) + '_',
@@ -58,10 +58,19 @@
         },
         
         watch: {
-            value: function(val){
-                this.dataValue = val ? val : '';
-                if(this.editor){
-                    this.editor.setContent(this.dataValue);
+            value: function(newValue, oldValue){
+
+                this.dataValue = newValue ? newValue : '';
+
+                // Check if value has just been loaded for the first time
+                if(oldValue === null){
+
+                    // Editor has been loaded before the value => set content !
+                    // (Otherwise, the content is set at editor init)
+                    if(this.editor){
+                        this.editor.setContent(this.dataValue);
+                    }
+
                 }
             },
         },
@@ -80,6 +89,7 @@
                 //console.log("textarea#" + this.uniqId, elt.length);
 
                 this.tinyMCE_options = {
+
                     selector: "div#" + this.uniqId,
                     height: '600px',
                     resize: "vertical",
