@@ -60,6 +60,9 @@
         watch: {
             value: function(val){
                 this.dataValue = val ? val : '';
+                if(this.editor){
+                    this.editor.setContent(this.dataValue);
+                }
             },
         },
 
