@@ -101,7 +101,7 @@
                     plugins: [
                         "textcolor advlist autolink lists link image charmap print preview anchor emoticons", // media
                         "searchreplace visualblocks code fullscreen charmap",
-                        "insertdatetime table contextmenu paste" //moxiemanager
+                        "insertdatetime table contextmenu paste autoresize" //moxiemanager
                     ],
                     //menubar: "tools table format view insert edit",
                     menubar: false,
