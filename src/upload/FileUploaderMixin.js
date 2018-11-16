@@ -2,11 +2,12 @@ export default {
     data() {
         return {
             upload_url: null,
+            upload_promise: null,
+            
             upload_source: null,
             upload_state: 'none',
             upload_progress: 0,
             upload_total: 0,
-            upload_promise: null,
             upload_error: null,
         };
     },
