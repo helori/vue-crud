@@ -4,19 +4,16 @@
 
 <template>
 
-    <div class="pagination-full" :class="classes" v-if="pagination !== null">
+    <div class="pagination-full"
+        :class="classes"
+        v-if="pagination !== null && pagination.total > 0">
         <div class="row">
 
             <div class="col-sm">
                 <div class="h3">
-                    <span v-if="pagination && pagination.total > 0">
-                        {{ (pagination.current_page - 1) * pagination.per_page + 1 }}
-                        à {{ Math.min(pagination.current_page * pagination.per_page, pagination.total) }} 
-                        sur {{ pagination.total }}
-                    </span>
-                    <span v-else-if="pagination && pagination.total === 0">
-                        Aucun résultat
-                    </span>
+                    {{ (pagination.current_page - 1) * pagination.per_page + 1 }}
+                    to {{ Math.min(pagination.current_page * pagination.per_page, pagination.total) }} 
+                    on {{ pagination.total }}
                 </div>
             </div>
 
