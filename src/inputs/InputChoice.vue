@@ -15,7 +15,7 @@
     
     <div class="choice-wrapper" :style="'width:' + width + '%'">
         <div class="form-row">
-            <div v-for="option in options" :key="option[optionValueKey]" class="col" :class="columnClass">
+            <div v-for="option in options" :key="option[optionValueKey]" :class="columnClass">
                 <button 
                     type="button"
                     class="btn btn-block"
@@ -58,11 +58,6 @@
                 default: false,
                 required: false
             },
-            columns: {
-                type: Number,
-                default: 2,
-                required: false
-            },
             width: {
                 type: Number,
                 default: 100,
@@ -70,7 +65,7 @@
             },
             columnClass: {
                 type: String,
-                default: ''
+                default: 'col'
             },
         },
         methods: {
