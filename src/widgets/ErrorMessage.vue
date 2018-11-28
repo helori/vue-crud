@@ -2,7 +2,7 @@
 </style>
 
 <template>
-    <div class="alert alert-danger mt-2 mb-0" :class="classes" v-if="errors">
+    <div class="alert alert-danger" :class="classes" v-if="errors">
         <div v-if="errors.errors">
             <div v-for="(errors, field) in errors.errors">
                 <div v-for="error in errors">
