@@ -1,7 +1,7 @@
 <style lang="scss" scoped>
 .drawer{
     background: #888;
-	overflow-y: scroll;
+    overflow-y: scroll;
     position: absolute;
     top: 0;
     left: 0;
@@ -26,7 +26,7 @@
 </style>
 
 <template>
-	<div class="drawer">
+    <div class="drawer">
 
         <div v-if="imageStatus === 'loading'"
             class="text-center text-white p-5">
@@ -46,7 +46,7 @@
         
         data(){
             return {
-            	canvas: null,
+                canvas: null,
                 ctx: null,
                 image: null,
                 imageStatus: null,
@@ -95,6 +95,11 @@
                     this.imageStatus = 'loading';
                 }
             },
+            fields: {
+                handler(){
+                    this.updateCanvas();
+                }
+            },
             fieldIdx: {
                 handler(){
                     console.log('=> field-index-changed', this.fieldIdx);
@@ -113,7 +118,7 @@
         },
 
         mounted() {
-    		
+            
             let vm = this;
 
             // Init canvas and mouse callbacks
