@@ -21,6 +21,7 @@ label{
             <span v-show="showIcon">
                 <i class="fas fa-folder-open"></i>
             </span>
+            <slot name="content"></slot>
             {{ inputText }}
         </label>
 
