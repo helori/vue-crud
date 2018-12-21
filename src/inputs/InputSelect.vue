@@ -5,7 +5,7 @@
 <template>  
     <select
         :id="name"
-        :class="'form-control text-' + textAlign + (classes ? ' ' + classes : '')"
+        :class="'custom-select text-' + textAlign + (classes ? ' ' + classes : '')"
         v-model="dataValue"
         :multiple="multiple"
         :disabled="disabled"
