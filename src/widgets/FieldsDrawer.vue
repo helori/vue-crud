@@ -26,7 +26,7 @@
 </style>
 
 <template>
-    <div class="drawer">
+    <div class="drawer" :class="classes">
 
         <div v-if="imageStatus === 'loading'"
             class="text-center text-white p-5">
@@ -86,7 +86,12 @@
                 type: Number,
                 required: false,
                 default: 16
-            }
+            },
+
+            classes: {
+                type: String,
+                default: ''
+            },
         },
 
         watch: {
