@@ -97,7 +97,13 @@
                 type: Number,
                 required: false,
                 default: 4
-            }
+            },
+
+            fieldsColor: {
+                type: String,
+                required: false,
+                default: 'LightSkyBlue'
+            },
         },
 
         watch: {
@@ -475,7 +481,7 @@
 
                     this.ctx.save();
                     
-                    let backColor = 'LightSkyBlue';
+                    let backColor = this.fieldsColor;
                     if(!this.fields[i].key){
                         backColor = 'Tomato';
                     }
