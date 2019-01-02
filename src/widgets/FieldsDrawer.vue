@@ -260,7 +260,7 @@
             //  to know if we just clicked on an existing field or not
             //  => returns the field id or null
             // ---------------------------------------------------------
-            getFieldIdxAt(x, y){
+            getFieldIdAt(x, y){
 
                 var id = null;
 
