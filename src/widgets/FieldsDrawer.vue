@@ -449,8 +449,20 @@
 
                     if(vm.draggingFieldId !== null){
 
+                        let field = vm.fieldWithId(vm.draggingFieldId);
+                        let factor = Math.pow(10, vm.precision);
+
+                        let rect = {
+                            x: Math.round(factor * field.rect.x) / factor,
+                            y: Math.round(factor * field.rect.y) / factor,
+                            w: Math.round(factor * field.rect.w) / factor,
+                            h: Math.round(factor * field.rect.h) / factor,
+                        };
+
+                        field.rect = rect;
+
                         console.log('=> field-updated');
-                        vm.$emit('field-updated', vm.fieldWithId(vm.draggingFieldId));
+                        vm.$emit('field-updated', field);
                         vm.updateCanvas();
 
                         vm.draggingFieldId = null;
