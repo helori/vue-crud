@@ -494,7 +494,14 @@
                     this.ctx.textAlign = 'center';
                     this.ctx.fillStyle = 'black';
 
-                    let text = this.fields[i].key ? this.fields[i].name : '?';
+                    let text = '';
+                    if(!this.fields[i].key){
+                        text = 'Not assigned';
+                    }else if(this.fields[i].name){
+                        text = this.fields[i].name;
+                    }else{
+                        text = ''; //this.fields[i].key;
+                    }
                     this.ctx.fillText(text, r.x * w + (r.w * w)/2, r.y * h + (r.h * h)/2 + 3); 
 
                     this.ctx.restore();
