@@ -51,8 +51,8 @@
                 image: null,
                 imageStatus: null,
 
-                fieldIdx: null,
-                draggingFieldIdx: null,
+                fieldId: null,
+                draggingFieldId: null,
                 dragFieldRect: null,
                 dragMode: null,
                 dragFromX: 0,
@@ -106,6 +106,12 @@
             },
         },
 
+        computed: {
+            currentField(){
+                return this.fieldWithId(this.fieldId);
+            }
+        },
+
         watch: {
             url: {
                 handler(){
@@ -117,10 +123,10 @@
                     this.updateCanvas();
                 }
             },
-            fieldIdx: {
+            fieldId: {
                 handler(){
-                    console.log('=> field-index-changed', this.fieldIdx);
-                    this.$emit('field-index-changed', this.fieldIdx);
+                    console.log('=> field ID changed', this.fieldId);
+                    this.$emit('field-id-changed', this.fieldId);
                 }
             },
         },
@@ -139,7 +145,7 @@
 
             $(vm.$el).find('img').on('load', r => {
                 vm.imageStatus = 'success';
-                vm.fieldIdx = null;
+                vm.fieldId = null;
                 $(vm.$el).scrollTop(0);
                 vm.resizeCanvas();
             });
@@ -171,11 +177,34 @@
         methods: {
 
             // ---------------------------------------------------------
+            //  Get field from ID
+            // ---------------------------------------------------------
+            fieldWithId(fieldId){
+                let field = null;
+                for(let i=0; i<this.fields.length; ++i){
+                    if(this.fields[i].id === fieldId){
+                        field = this.fields[i];
+                    }
+                }
+                return field;
+            },
+
+            fieldIdxFromId(fieldId){
+                let idx = null;
+                for(let i=0; i<this.fields.length; ++i){
+                    if(this.fields[i].id === fieldId){
+                        idx = i;
+                    }
+                }
+                return idx;
+            },
+
+            // ---------------------------------------------------------
             //  Add a new field to the current page
             // ---------------------------------------------------------
             addField(field){
                 this.fields.push(field);
-                this.fieldIdx = this.fields.length - 1;                
+                this.fieldId = field.id; 
                 this.updateCanvas();
 
                 console.log('=> field-created');
@@ -187,25 +216,23 @@
             // ---------------------------------------------------------
             duplicateCurrentField(){
 
-                if(this.fieldIdx < this.fields.length){
+                if(this.currentField !== null){
 
-                    let field = this.fields[this.fieldIdx];
-                 
                     var w = this.canvas[0].width;
                     var h = this.canvas[0].height;
 
                     this.addField({
                         // Geometry for the field
                         rect: {
-                            x: (this.currentMouseX / w) - (field.rect.w / 2),
-                            y: (this.currentMouseY / h) - (field.rect.h / 2),
-                            w: field.rect.w,
-                            h: field.rect.h,
+                            x: (this.currentMouseX / w) - (this.currentField.rect.w / 2),
+                            y: (this.currentMouseY / h) - (this.currentField.rect.h / 2),
+                            w: this.currentField.rect.w,
+                            h: this.currentField.rect.h,
                         },
                         // The key of the selected field (used to compute its value)
                         key: null,
                         // the type is the format to use when writing the field's value
-                        type: field.type,
+                        type: this.currentField.type,
                         // The name of the field (for display purposes)
                         name: null,
                     });
@@ -216,11 +243,11 @@
             //  Delete current field
             // ---------------------------------------------------------
             deleteCurrentField(){
-                let removeIndex = this.fieldIdx;
-                let field = this.fields[this.fieldIdx];
+                let removeIdx = this.fieldIdxFromId(this.fieldId);
+                let field = this.currentField;
 
-                this.fieldIdx = (this.fieldIdx > 0) ? this.fieldIdx - 1 : null;
-                this.fields.splice(removeIndex, 1);
+                this.fieldId = null;
+                this.fields.splice(removeIdx, 1);
                 
                 console.log('=> field-deleted');
                 this.$emit('field-deleted', field);
@@ -228,27 +255,14 @@
                 this.updateCanvas();
             },
 
-            /*
-            
-
-            // ---------------------------------------------------------
-            //  Set current field
-            // ---------------------------------------------------------
-            setField(idx){
-                this.fieldIdx = idx;
-                this.updateCanvas();
-            },
-
-            */
-
             // ---------------------------------------------------------
             //  This function is used by "mousedown" callback
             //  to know if we just clicked on an existing field or not
-            //  => returns the field index or null
+            //  => returns the field id or null
             // ---------------------------------------------------------
             getFieldIdxAt(x, y){
 
-                var idx = null;
+                var id = null;
 
                 var w = this.canvas[0].width;
                 var h = this.canvas[0].height;
@@ -259,10 +273,10 @@
 
                     if((x >= r.x * w) && (x <= (r.x + r.w) * w) && (y >= r.y * h) && (y <= (r.y + r.h) * h)) {
                         
-                        idx = i;
+                        id = this.fields[i].id;
                     }
                 }
-                return idx;
+                return id;
             },
 
             // ---------------------------------------------------------
@@ -280,9 +294,9 @@
                     let x = e.originalEvent.layerX;
                     let y = e.originalEvent.layerY;
 
-                    vm.draggingFieldIdx = vm.getFieldIdxAt(x, y);
+                    vm.draggingFieldId = vm.getFieldIdAt(x, y);
 
-                    if(vm.draggingFieldIdx === null && !vm.tmpPos.active){
+                    if(vm.draggingFieldId === null && !vm.tmpPos.active){
 
                         vm.tmpPos.active = true;
                         vm.tmpPos.x1 = x;
@@ -293,12 +307,12 @@
                         vm.updateCanvas();
                     }
 
-                    if(vm.draggingFieldIdx !== null){
+                    if(vm.draggingFieldId !== null){
 
-                        vm.fieldIdx = vm.draggingFieldIdx;
+                        vm.fieldId = vm.draggingFieldId;
 
                         // Get the clicked field
-                        var field = vm.fields[vm.draggingFieldIdx];
+                        var field = vm.fieldWithId(vm.draggingFieldId);
 
                         vm.dragMode = vm.geometryModeForPos(x, y, field);
 
@@ -335,9 +349,9 @@
                         vm.updateCanvas();
                     }
 
-                    if(vm.draggingFieldIdx !== null){
+                    if(vm.draggingFieldId !== null){
 
-                        var field = vm.fields[vm.draggingFieldIdx];
+                        var field = vm.fieldWithId(vm.draggingFieldId);
 
                         var w = vm.canvas[0].width;
                         var h = vm.canvas[0].height;
@@ -433,13 +447,13 @@
                         }
                     }
 
-                    if(vm.draggingFieldIdx !== null){
+                    if(vm.draggingFieldId !== null){
 
                         console.log('=> field-updated');
-                        vm.$emit('field-updated', vm.fields[vm.draggingFieldIdx]);
+                        vm.$emit('field-updated', vm.fieldWithId(vm.draggingFieldId));
                         vm.updateCanvas();
 
-                        vm.draggingFieldIdx = null;
+                        vm.draggingFieldId = null;
                         vm.dragFieldRect = null;
                         vm.dragMode = null;
                     }
@@ -488,7 +502,7 @@
 
                     this.ctx.fillStyle = backColor;
                     this.ctx.strokeStyle = 'black';
-                    this.ctx.lineWidth = (this.fieldIdx === i) ? 4 : 1;
+                    this.ctx.lineWidth = (this.fieldId === this.fields[i].id) ? 4 : 1;
 
                     this.ctx.beginPath();
                     this.ctx.rect(r.x * w, r.y * h, r.w * w, r.h * h);
