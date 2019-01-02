@@ -179,7 +179,7 @@
                 this.updateCanvas();
 
                 console.log('=> field-created');
-                this.$emit('field-created', this.fields);
+                this.$emit('field-created', field);
             },
 
             // ---------------------------------------------------------
@@ -208,8 +208,6 @@
                         type: field.type,
                         // The name of the field (for display purposes)
                         name: null,
-                        // Display conditions
-                        conditions: [],
                     });
                 }
             },
@@ -219,11 +217,15 @@
             // ---------------------------------------------------------
             deleteCurrentField(){
                 let removeIndex = this.fieldIdx;
+                let field = this.fields[this.fieldIdx];
+
                 this.fieldIdx = (this.fieldIdx > 0) ? this.fieldIdx - 1 : null;
                 this.fields.splice(removeIndex, 1);
-                this.updateCanvas();
+                
                 console.log('=> field-deleted');
-                this.$emit('field-deleted', this.fields);
+                this.$emit('field-deleted', field);
+
+                this.updateCanvas();
             },
 
             /*
@@ -427,8 +429,6 @@
                                 type: vm.defaultType,
                                 // The name of the field (for display purposes)
                                 name: null,
-                                // Display conditions
-                                conditions: [],
                             });
                         }
                     }
@@ -436,7 +436,7 @@
                     if(vm.draggingFieldIdx !== null){
 
                         console.log('=> field-updated');
-                        vm.$emit('field-updated', vm.fields);
+                        vm.$emit('field-updated', vm.fields[vm.draggingFieldIdx]);
                         vm.updateCanvas();
 
                         vm.draggingFieldIdx = null;
