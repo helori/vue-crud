@@ -92,6 +92,12 @@
                 type: String,
                 default: ''
             },
+
+            precision: {
+                type: Number,
+                required: false,
+                default: 4
+            }
         },
 
         watch: {
@@ -111,15 +117,6 @@
                     this.$emit('field-index-changed', this.fieldIdx);
                 }
             },
-        },
-
-        computed: {
-            /*selectedId(){
-                if(this.fieldIdx < this.fields.length){
-                    return this.fields[this.fieldIdx].id;
-                }
-                return null;
-            }*/
         },
 
         mounted() {
@@ -192,22 +189,21 @@
                     var h = this.canvas[0].height;
 
                     this.addField({
+                        // Geometry for the field
                         rect: {
                             x: (this.currentMouseX / w) - (field.rect.w / 2),
                             y: (this.currentMouseY / h) - (field.rect.h / 2),
                             w: field.rect.w,
                             h: field.rect.h,
                         },
-                        // the type is the format to use when writing dynamic values
+                        // The key of the selected field (used to compute its value)
+                        key: null,
+                        // the type is the format to use when writing the field's value
                         type: field.type,
-                        // The source can be "static" (for fixed text), or "dynamic" (to select a field)
-                        source: field.source,
-                        // The id of the selected field
-                        id: null,
-                        // The name of the selected field
+                        // The name of the field (for display purposes)
                         name: null,
-                        // the value (used for "static" sources)
-                        value: '',
+                        // Display conditions
+                        conditions: [],
                     });
                 }
             },
@@ -404,28 +400,29 @@
                         
                         vm.tmpPos.active = false;
 
+                        let factor = Math.pow(10, vm.precision);
+
                         var rect = {
-                            x: Math.min(vm.tmpPos.x1, vm.tmpPos.x2) / w,
-                            y: Math.min(vm.tmpPos.y1, vm.tmpPos.y2) / h,
-                            w: Math.abs(vm.tmpPos.x1 - vm.tmpPos.x2) / w,
-                            h: Math.abs(vm.tmpPos.y1 - vm.tmpPos.y2) / h,
+                            x: Math.round(factor * Math.min(vm.tmpPos.x1, vm.tmpPos.x2) / w) / factor,
+                            y: Math.round(factor * Math.min(vm.tmpPos.y1, vm.tmpPos.y2) / h) / factor,
+                            w: Math.round(factor * Math.abs(vm.tmpPos.x1 - vm.tmpPos.x2) / w) / factor,
+                            h: Math.round(factor * Math.abs(vm.tmpPos.y1 - vm.tmpPos.y2) / h) / factor,
                         };
 
                         // Il faut que la zone soit plus grande qu'un carré de 5px
                         if(rect.w * w >= 5 && rect.h * h >= 5){
 
                             vm.addField({
+                                // Geometry for the field
                                 rect: rect,
-                                // the type is the format to use when writing dynamic values
+                                // The key of the selected field (used to compute its value)
+                                key: null,
+                                // the type is the format to use when writing the field's value
                                 type: vm.defaultType,
-                                // The source can be "static" (for fixed text), or "dynamic" (to select a field)
-                                source: 'dynamic',
-                                // The id of the selected field
-                                id: null,
-                                // The name of the selected field
+                                // The name of the field (for display purposes)
                                 name: null,
-                                // the value (used for "static" sources)
-                                value: '',
+                                // Display conditions
+                                conditions: [],
                             });
                         }
                     }
@@ -479,7 +476,7 @@
                     this.ctx.save();
                     
                     let backColor = 'LightSkyBlue';
-                    if(this.fields[i].source === 'dynamic' && this.fields[i].id === null){
+                    if(!this.fields[i].key){
                         backColor = 'Tomato';
                     }
 
@@ -497,13 +494,7 @@
                     this.ctx.textAlign = 'center';
                     this.ctx.fillStyle = 'black';
 
-                    let text = '';
-                    if(this.fields[i].source === 'static'){
-                        text = this.fields[i].value;
-                    }else if(this.fields[i].source === 'dynamic'){
-                        text = this.fields[i].name || '?';
-                    }
-
+                    let text = this.fields[i].key ? this.fields[i].name : '?';
                     this.ctx.fillText(text, r.x * w + (r.w * w)/2, r.y * h + (r.h * h)/2 + 3); 
 
                     this.ctx.restore();
