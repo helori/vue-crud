@@ -23,23 +23,22 @@ export default {
     
     methods: {
 
-        upload(config, extra)
+        upload(config)
         {
             let files = config.files;
             let multiple = config.multiple;
-            let collection = (extra && extra.collection) ? extra.collection : null;
-            let documentId = (extra && extra.documentId) ? extra.documentId : null;
+            let collection = config.collection ? config.collection : null;
+            let documentId = config.documentId ? config.documentId : null;
+            let upload_url = config.upload_url ? config.upload_url : this.upload_url;
 
-            var self = this;
+            let self = this;
 
             this.upload_state = 'uploading';
             this.upload_progress = 0;
             this.upload_total = 0;
             this.upload_error = null;
 
-            let upload_url = config.upload_url ? config.upload_url : this.upload_url;
-
-            var formData = new FormData();
+            let formData = new FormData();
 
             if(multiple){
                 
