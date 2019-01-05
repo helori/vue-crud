@@ -133,8 +133,8 @@
             },
             selectedIds: {
                 handler(){
-                    console.log('=> Selected IDs changed', this.fieldId);
-                    this.$emit('selected-ids-changed', this.fieldId);
+                    console.log('=> Selected IDs changed', this.selectedIds);
+                    this.$emit('selected-ids-changed', this.selectedIds);
                 }
             },
         },
