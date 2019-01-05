@@ -358,8 +358,10 @@
                         // Trying to select
                         }else{
 
-                            // Reset selection to the clicked field only
-                            vm.selectedIds.push(vm.draggingFieldId);
+                            // Add the field to the selection if needed
+                            if(vm.selectedIds.indexOf(vm.draggingFieldId) === -1){
+                                vm.selectedIds.push(vm.draggingFieldId);
+                            }
                         }
 
                         vm.updateCanvas();
