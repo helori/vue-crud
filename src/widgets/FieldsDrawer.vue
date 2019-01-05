@@ -48,10 +48,13 @@
             return {
                 canvas: null,
                 ctx: null,
+                pixelRatio: 1,
                 image: null,
                 imageStatus: null,
 
                 fieldId: null,
+                selectedIds: [],
+
                 draggingFieldId: null,
                 dragFieldRect: null,
                 dragMode: null,
@@ -60,8 +63,6 @@
 
                 currentMouseX: 0,
                 currentMouseY: 0,
-
-                selectedIds: [],
                 
                 tmpPos: {
                     x1: 0,
@@ -101,11 +102,34 @@
                 default: 4
             },
 
-            fieldsColor: {
+            colorValid: {
                 type: String,
                 required: false,
                 default: 'LightSkyBlue'
             },
+
+            colorInvalid: {
+                type: String,
+                required: false,
+                default: 'Tomato'
+            },
+
+            colorCurrent: {
+                type: String,
+                required: false,
+                default: 'DarkOrange'
+            },
+
+            colorSelected: {
+                type: String,
+                required: false,
+                default: 'Gold'
+            },
+
+            fieldIsValid: {
+                type: Function,
+                required: false
+            }
         },
 
         computed: {
@@ -217,8 +241,10 @@
             // ---------------------------------------------------------
             addField(field){
                 this.fields.push(field);
-                this.fieldId = field.id;
-                this.selectedIds = [ field.id ];
+                if(field.id){
+                    this.fieldId = field.id;
+                    this.selectedIds = [ field.id ];
+                }
                 this.updateCanvas();
 
                 console.log('=> field-created');
@@ -304,10 +330,23 @@
                 this.canvas = $(this.$el).find('canvas');
                 this.ctx = this.canvas[0].getContext('2d');
 
+                // Get the various pixel ratios
+                let devicePixelRatio = window.devicePixelRatio || 1;
+                let backingStoreRatio = this.ctx.webkitBackingStorePixelRatio ||
+                    this.ctx.mozBackingStorePixelRatio ||
+                    this.ctx.msBackingStorePixelRatio ||
+                    this.ctx.oBackingStorePixelRatio ||
+                    this.ctx.backingStorePixelRatio || 1;
+
+                // Store the pixel ratio for the current device resolution
+                this.pixelRatio = devicePixelRatio / backingStoreRatio;
+
+                this.ctx.scale(this.pixelRatio, this.pixelRatio);
+
                 this.canvas.on('mousedown', function(e){
 
-                    let x = e.originalEvent.layerX;
-                    let y = e.originalEvent.layerY;
+                    let x = e.originalEvent.layerX * vm.pixelRatio;
+                    let y = e.originalEvent.layerY * vm.pixelRatio;
                     let tryingSelect = e.ctrlKey || e.metaKey;
 
                     vm.draggingFieldId = vm.getFieldIdAt(x, y);
@@ -318,6 +357,7 @@
                     if(vm.draggingFieldId === null && !vm.tmpPos.active && !tryingSelect){
 
                         // Reset selection
+                        vm.fieldId = null;
                         vm.selectedIds = [];
 
                         vm.tmpPos.active = true;
@@ -376,8 +416,8 @@
 
                 }).on('mousemove', function(e){
 
-                    let x = e.originalEvent.layerX;
-                    let y = e.originalEvent.layerY;
+                    let x = e.originalEvent.layerX * vm.pixelRatio;
+                    let y = e.originalEvent.layerY * vm.pixelRatio;
                     let tryingSelect = e.ctrlKey || e.metaKey;
 
                     vm.currentMouseX = x;
@@ -390,7 +430,7 @@
                         
                         vm.tmpPos.x2 = x;
                         if(parseInt(vm.fieldsHeight)){
-                            vm.tmpPos.y2 = vm.tmpPos.y1 + parseInt(vm.fieldsHeight);
+                            vm.tmpPos.y2 = vm.tmpPos.y1 + parseInt(vm.fieldsHeight * vm.pixelRatio);
                         }else{
                             vm.tmpPos.y2 = y;
                         }
@@ -468,9 +508,6 @@
 
                         let w = vm.canvas[0].width;
                         let h = vm.canvas[0].height;
-
-                        //var x = e.originalEvent.layerX;
-                        //var y = e.originalEvent.layerY;
                         
                         vm.tmpPos.active = false;
 
@@ -527,6 +564,8 @@
 
             resizeCanvas(){
 
+                console.log('== CANVAS RESIZE ==');
+
                 var wrapper = $(this.$el);
                 var image = $(this.$el).find('img');
 
@@ -535,18 +574,29 @@
                 var w = Math.ceil(image.width());
                 var h = Math.ceil(image.height());
 
-                if(w !== this.canvas[0].width || h !== this.canvas[0].height){
+                // upscale the canvas according to the current device resolution
+                this.canvas[0].width = w * this.pixelRatio;
+                this.canvas[0].height = h * this.pixelRatio;
 
-                    this.canvas[0].width = w;
-                    this.canvas[0].height = h;
+                // Maintain the canvas display size
+                this.canvas[0].style.width = w + 'px';
+                this.canvas[0].style.height = h + 'px';
 
-                    this.updateCanvas();
-                }
+                console.log('-> Canvas real size', this.canvas[0].width, this.canvas[0].height);
+                console.log('-> Canvas display size', this.canvas[0].style.width, this.canvas[0].style.height);
+                console.log('-> Canvas pixel ratio', this.pixelRatio);
+
+                // Scale the context to counter the fact that we've manually scaled our canvas element
+                //this.ctx.scale(this.pixelRatio, this.pixelRatio);
+                //this.ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+                this.updateCanvas();
             },
 
             updateCanvas(){
 
-                console.log('REPAINT');
+                console.log('== CANVAS REPAINT ==');
+                console.log('-> Canvas real size', this.canvas[0].width, this.canvas[0].height);
 
                 var w = this.canvas[0].width;
                 var h = this.canvas[0].height;
@@ -559,34 +609,53 @@
 
                     this.ctx.save();
                     
-                    let backColor = this.fieldsColor;
-                    if(!this.fields[i].key){
-                        backColor = 'Tomato';
+                    let backColor = 'MediumAquamarine';
+                    let lineWidth = 1;
+
+                    if(this.fields[i].id === this.fieldId){
+                        backColor = this.colorCurrent;
+                        lineWidth = 4;
+                    }else if(this.fieldIdIsSelected(this.fields[i].id)){
+                        backColor = this.colorSelected;
+                        lineWidth = 4;
+                    }else if(this.fieldIsValid(this.fields[i])){
+                        backColor = this.colorValid;
+                    }else{
+                        backColor = this.colorInvalid;
                     }
 
                     this.ctx.fillStyle = backColor;
                     this.ctx.strokeStyle = 'black';
-                    this.ctx.lineWidth = this.fieldIdIsSelected(this.fields[i].id) ? 4 : 1;
+                    this.ctx.lineWidth = lineWidth;
 
                     this.ctx.beginPath();
-                    this.ctx.rect(r.x * w, r.y * h, r.w * w, r.h * h);
+                    this.ctx.rect(
+                        Math.round(r.x * w), 
+                        Math.round(r.y * h), 
+                        Math.round(r.w * w), 
+                        Math.round(r.h * h)
+                    );
                     this.ctx.clip();
                     this.ctx.fill();
                     this.ctx.stroke();
 
-                    this.ctx.font = '10px Arial';
+                    this.ctx.font = '20px Arial';
                     this.ctx.textAlign = 'center';
                     this.ctx.fillStyle = 'black';
 
                     let text = '';
                     if(!this.fields[i].key){
-                        text = 'Not assigned';
+                        text = '?';
                     }else if(this.fields[i].name){
                         text = this.fields[i].name;
                     }else{
                         text = ''; //this.fields[i].key;
                     }
-                    this.ctx.fillText(text, r.x * w + (r.w * w)/2, r.y * h + (r.h * h)/2 + 3); 
+                    this.ctx.fillText(
+                        text, 
+                        Math.round(r.x * w + (r.w * w)/2), 
+                        Math.round(r.y * h + (r.h * h)/2 + 6)
+                    ); 
 
                     this.ctx.restore();
                 }
@@ -598,10 +667,10 @@
                     this.ctx.fillStyle = 'LightSkyBlue';
                     this.ctx.beginPath();
                     this.ctx.rect(
-                        Math.min(this.tmpPos.x1, this.tmpPos.x2), 
-                        Math.min(this.tmpPos.y1, this.tmpPos.y2), 
-                        Math.abs(this.tmpPos.x1 - this.tmpPos.x2), 
-                        Math.abs(this.tmpPos.y1 - this.tmpPos.y2)
+                        Math.round(Math.min(this.tmpPos.x1, this.tmpPos.x2)), 
+                        Math.round(Math.min(this.tmpPos.y1, this.tmpPos.y2)), 
+                        Math.round(Math.abs(this.tmpPos.x1 - this.tmpPos.x2)), 
+                        Math.round(Math.abs(this.tmpPos.y1 - this.tmpPos.y2))
                     );
                     this.ctx.clip();
                     this.ctx.fill();
