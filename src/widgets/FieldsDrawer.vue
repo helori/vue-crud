@@ -363,8 +363,8 @@
                         vm.tmpPos.active = true;
                         vm.tmpPos.x1 = x;
                         vm.tmpPos.y1 = y;
-                        vm.tmpPos.x2 = x;
-                        vm.tmpPos.y2 = y;
+                        vm.tmpPos.x2 = x + parseInt(vm.fieldsHeight * vm.pixelRatio);
+                        vm.tmpPos.y2 = y + parseInt(vm.fieldsHeight * vm.pixelRatio);
 
                         vm.updateCanvas();
                     }
@@ -623,6 +623,7 @@
                     }else{
                         backColor = this.colorInvalid;
                     }
+                    lineWidth *= this.pixelRatio;
 
                     this.ctx.fillStyle = backColor;
                     this.ctx.strokeStyle = 'black';
@@ -644,18 +645,18 @@
                     this.ctx.fillStyle = 'black';
 
                     let text = '';
-                    if(!this.fields[i].key){
+                    if(!this.fieldIsValid(this.fields[i])){
                         text = '?';
                     }else if(this.fields[i].name){
                         text = this.fields[i].name;
                     }else{
-                        text = ''; //this.fields[i].key;
+                        text = '';
                     }
                     this.ctx.fillText(
                         text, 
-                        Math.round(r.x * w + (r.w * w)/2), 
-                        Math.round(r.y * h + (r.h * h)/2 + 6)
-                    ); 
+                        Math.round((r.x * w) + lineWidth + ((r.w * w) - 2*lineWidth)/2), 
+                        Math.round((r.y * h) + lineWidth + ((r.h * h) - 2*lineWidth)/2 + 8)
+                    );
 
                     this.ctx.restore();
                 }
