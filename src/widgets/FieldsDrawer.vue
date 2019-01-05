@@ -154,6 +154,7 @@
             $(vm.$el).find('img').on('load', r => {
                 vm.imageStatus = 'success';
                 vm.fieldId = null;
+                vm.selectedIds = [];
                 $(vm.$el).scrollTop(0);
                 vm.resizeCanvas();
             });
@@ -216,7 +217,8 @@
             // ---------------------------------------------------------
             addField(field){
                 this.fields.push(field);
-                this.fieldId = field.id; 
+                this.fieldId = field.id;
+                this.selectedIds = [ field.id ];
                 this.updateCanvas();
 
                 console.log('=> field-created');
@@ -259,6 +261,7 @@
                 let field = this.currentField;
 
                 this.fieldId = null;
+                this.selectedIds = [];
                 this.fields.splice(removeIdx, 1);
                 
                 console.log('=> field-deleted');
@@ -358,9 +361,13 @@
                         // Trying to select
                         }else{
 
-                            // Add the field to the selection if needed
-                            if(vm.selectedIds.indexOf(vm.draggingFieldId) === -1){
+                            // Toggle the field in the selection
+                            let idx = vm.selectedIds.indexOf(vm.draggingFieldId);
+                            if(idx === -1){
                                 vm.selectedIds.push(vm.draggingFieldId);
+                            }else{
+                                vm.selectedIds.splice(idx, 1);
+                                vm.fieldId = vm.selectedIds.length > 0 ? vm.selectedIds[vm.selectedIds.length - 1] : null;
                             }
                         }
 
@@ -388,7 +395,6 @@
                             vm.tmpPos.y2 = y;
                         }
                         
-
                         vm.updateCanvas();
                     }
 
