@@ -151,13 +151,13 @@
             },
             fieldId: {
                 handler(){
-                    console.log('=> field ID changed', this.fieldId);
+                    console.log('+ field ID changed', this.fieldId);
                     this.$emit('field-id-changed', this.fieldId);
                 }
             },
             selectedIds: {
                 handler(){
-                    console.log('=> Selected IDs changed', this.selectedIds);
+                    console.log('+ Selected IDs changed', this.selectedIds);
                     this.$emit('selected-ids-changed', this.selectedIds);
                 }
             },
@@ -190,7 +190,7 @@
                 if(e.originalEvent.key === 'd' || e.originalEvent.key === 'D'){
                     vm.duplicateCurrentField();
                 }else if(e.originalEvent.key === 'Delete'){
-                    vm.deleteCurrentField();
+                    vm.deleteSelectedField();
                 }/*else if(e.originalEvent.key === 'ArrowRight'){
                     vm.shiftField(1, 0);
                 }else if(e.originalEvent.key === 'ArrowLeft'){
@@ -236,6 +236,13 @@
                 return (this.selectedIds.indexOf(id) !== -1);
             },
 
+            setFieldId(id){
+                console.log("setFieldId", id);
+                this.fieldId = id;
+                this.selectedIds = [ id ];
+                this.updateCanvas();
+            },
+
             // ---------------------------------------------------------
             //  Add a new field to the current page
             // ---------------------------------------------------------
@@ -247,7 +254,7 @@
                 }
                 this.updateCanvas();
 
-                console.log('=> field-created');
+                console.log('+ field-created');
                 this.$emit('field-created', field);
             },
 
@@ -282,16 +289,24 @@
             // ---------------------------------------------------------
             //  Delete current field
             // ---------------------------------------------------------
-            deleteCurrentField(){
-                let removeIdx = this.fieldIdxFromId(this.fieldId);
-                let field = this.currentField;
+            deleteSelectedField(){
+
+                for(let i=0; i<this.selectedIds.length; ++i){
+
+                    let removeIdx = this.fieldIdxFromId(this.selectedIds[i]);
+                    let field = this.fieldWithId(this.selectedIds[i]);
+
+                    this.fields.splice(removeIdx, 1);
+                    
+                    console.log('+ field-deleted', field);
+                    this.$emit('field-deleted', field);
+                }
+
+                console.log('+ fields-deleted', this.selectedIds);
+                this.$emit('fields-deleted', this.selectedIds);
 
                 this.fieldId = null;
                 this.selectedIds = [];
-                this.fields.splice(removeIdx, 1);
-                
-                console.log('=> field-deleted');
-                this.$emit('field-deleted', field);
 
                 this.updateCanvas();
             },
@@ -363,8 +378,8 @@
                         vm.tmpPos.active = true;
                         vm.tmpPos.x1 = x;
                         vm.tmpPos.y1 = y;
-                        vm.tmpPos.x2 = x + parseInt(vm.fieldsHeight * vm.pixelRatio);
-                        vm.tmpPos.y2 = y + parseInt(vm.fieldsHeight * vm.pixelRatio);
+                        vm.tmpPos.x2 = x;
+                        vm.tmpPos.y2 = y;
 
                         vm.updateCanvas();
                     }
@@ -429,6 +444,7 @@
                     if(vm.tmpPos.active){
                         
                         vm.tmpPos.x2 = x;
+
                         if(parseInt(vm.fieldsHeight)){
                             vm.tmpPos.y2 = vm.tmpPos.y1 + parseInt(vm.fieldsHeight * vm.pixelRatio);
                         }else{
@@ -513,14 +529,18 @@
 
                         let factor = Math.pow(10, vm.precision);
 
-                        var rect = {
+                        let rect = {
                             x: Math.round(factor * Math.min(vm.tmpPos.x1, vm.tmpPos.x2) / w) / factor,
                             y: Math.round(factor * Math.min(vm.tmpPos.y1, vm.tmpPos.y2) / h) / factor,
                             w: Math.round(factor * Math.abs(vm.tmpPos.x1 - vm.tmpPos.x2) / w) / factor,
                             h: Math.round(factor * Math.abs(vm.tmpPos.y1 - vm.tmpPos.y2) / h) / factor,
                         };
 
-                        // Il faut que la zone soit plus grande qu'un carré de 5px
+                        // Force minimum width equal to field's height
+                        let minSide = Math.round(factor * parseInt(vm.fieldsHeight * vm.pixelRatio) / w) / factor;
+                        rect.w = Math.max(rect.w, minSide);
+
+                        // Il faut que la zone tracée soit plus grande qu'un carré de 5px
                         if(rect.w * w >= 5 && rect.h * h >= 5){
 
                             vm.addField({
@@ -550,7 +570,7 @@
 
                         field.rect = rect;
 
-                        console.log('=> field-updated');
+                        console.log('+ field-updated');
                         vm.$emit('field-updated', field);
                         vm.updateCanvas();
 
