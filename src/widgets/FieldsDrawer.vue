@@ -60,6 +60,8 @@
 
                 currentMouseX: 0,
                 currentMouseY: 0,
+
+                selectedIds: [],
                 
                 tmpPos: {
                     x1: 0,
@@ -127,6 +129,12 @@
                 handler(){
                     console.log('=> field ID changed', this.fieldId);
                     this.$emit('field-id-changed', this.fieldId);
+                }
+            },
+            selectedIds: {
+                handler(){
+                    console.log('=> Selected IDs changed', this.fieldId);
+                    this.$emit('selected-ids-changed', this.fieldId);
                 }
             },
         },
@@ -197,6 +205,10 @@
                     }
                 }
                 return idx;
+            },
+
+            fieldIdIsSelected(id){
+                return (this.selectedIds.indexOf(id) !== -1);
             },
 
             // ---------------------------------------------------------
@@ -293,10 +305,17 @@
 
                     let x = e.originalEvent.layerX;
                     let y = e.originalEvent.layerY;
+                    let tryingSelect = e.ctrlKey || e.metaKey;
 
                     vm.draggingFieldId = vm.getFieldIdAt(x, y);
 
-                    if(vm.draggingFieldId === null && !vm.tmpPos.active){
+                    // ------------------------------------------------
+                    //  Click outside existing fields => draw a new one !
+                    // ------------------------------------------------
+                    if(vm.draggingFieldId === null && !vm.tmpPos.active && !tryingSelect){
+
+                        // Reset selection
+                        vm.selectedIds = [];
 
                         vm.tmpPos.active = true;
                         vm.tmpPos.x1 = x;
@@ -307,35 +326,57 @@
                         vm.updateCanvas();
                     }
 
+                    // ------------------------------------------------
+                    //  Clicked an existing field
+                    // ------------------------------------------------
                     if(vm.draggingFieldId !== null){
 
+                        // Last field clicked must be the current one
                         vm.fieldId = vm.draggingFieldId;
 
-                        // Get the clicked field
-                        var field = vm.fieldWithId(vm.draggingFieldId);
+                        // Not trying to select
+                        if(!tryingSelect){
 
-                        vm.dragMode = vm.geometryModeForPos(x, y, field);
+                            // Reset selection to the clicked field only
+                            vm.selectedIds = [ vm.draggingFieldId ];
 
-                        // The field can have been clicked anywhere inside itself,
-                        // so we need to remember the exact click location
-                        vm.dragFromX = x;
-                        vm.dragFromY = y;
+                            // Get the clicked field
+                            var field = vm.fieldWithId(vm.draggingFieldId);
 
-                        // Remember the initial field position as a reference,
-                        // so we can resize and move it in all directions
-                        vm.dragFieldRect = _.cloneDeep(field.rect);
+                            // dragMode may defer depending on which field's border has been clicked
+                            vm.dragMode = vm.geometryModeForPos(x, y, field);
+
+                            // The field can have been clicked anywhere inside itself,
+                            // so we need to remember the exact click location
+                            vm.dragFromX = x;
+                            vm.dragFromY = y;
+
+                            // Remember the initial field position as a reference,
+                            // so we can resize and move it in all directions
+                            vm.dragFieldRect = _.cloneDeep(field.rect);
+                        
+                        // Trying to select
+                        }else{
+
+                            // Reset selection to the clicked field only
+                            vm.selectedIds.push(vm.draggingFieldId);
+                        }
 
                         vm.updateCanvas();
                     }
 
                 }).on('mousemove', function(e){
 
-                    var x = e.originalEvent.layerX;
-                    var y = e.originalEvent.layerY;
+                    let x = e.originalEvent.layerX;
+                    let y = e.originalEvent.layerY;
+                    let tryingSelect = e.ctrlKey || e.metaKey;
 
                     vm.currentMouseX = x;
                     vm.currentMouseY = y;
 
+                    // ------------------------------------------------
+                    //  Drawing a new field
+                    // ------------------------------------------------
                     if(vm.tmpPos.active){
                         
                         vm.tmpPos.x2 = x;
@@ -349,12 +390,15 @@
                         vm.updateCanvas();
                     }
 
-                    if(vm.draggingFieldId !== null){
+                    // ------------------------------------------------
+                    //  Dragging an existing field
+                    // ------------------------------------------------
+                    if(vm.draggingFieldId !== null && !tryingSelect){
 
-                        var field = vm.fieldWithId(vm.draggingFieldId);
+                        let field = vm.fieldWithId(vm.draggingFieldId);
 
-                        var w = vm.canvas[0].width;
-                        var h = vm.canvas[0].height;
+                        let w = vm.canvas[0].width;
+                        let h = vm.canvas[0].height;
 
                         if(vm.dragMode === 'move'){
 
@@ -414,8 +458,8 @@
 
                     if(vm.tmpPos.active){
 
-                        var w = vm.canvas[0].width;
-                        var h = vm.canvas[0].height;
+                        let w = vm.canvas[0].width;
+                        let h = vm.canvas[0].height;
 
                         //var x = e.originalEvent.layerX;
                         //var y = e.originalEvent.layerY;
@@ -514,7 +558,7 @@
 
                     this.ctx.fillStyle = backColor;
                     this.ctx.strokeStyle = 'black';
-                    this.ctx.lineWidth = (this.fieldId === this.fields[i].id) ? 4 : 1;
+                    this.ctx.lineWidth = this.fieldIdIsSelected(this.fields[i].id) ? 4 : 1;
 
                     this.ctx.beginPath();
                     this.ctx.rect(r.x * w, r.y * h, r.w * w, r.h * h);
