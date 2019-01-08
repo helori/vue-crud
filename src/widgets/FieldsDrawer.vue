@@ -666,7 +666,7 @@
 
                     let text = '';
                     if(!this.fieldIsValid(this.fields[i])){
-                        this.fields[i].id;
+                        text = this.fields[i].id;
                     }else if(this.fields[i].name){
                         text = this.fields[i].name;
                     }else{
