@@ -21,32 +21,41 @@
         <div class="row">
             <div class="col col-sm-10">
                 <div class="row">
-                    <div class="col" :class="'col-sm-' + (12 / labels.length)" v-for="label in labels">
-                        <div class="lab">{{ label }}</div>
+                    <div class="col" :class="'col-sm-' + (12 / options.length)" v-for="option in options">
+                        <div class="lab">{{ option.label }}</div>
                     </div>
                 </div>
             </div>
             <div class="col col-sm-2">
-                <button type="button" class="btn btn-default btn-block" @click="insert()">
-                    <i class="fa fa-plus"></i>
+                <button type="button" class="btn btn-primary btn-block" @click="insert()">
+                    <i class="fal fa-plus-circle"></i>
                 </button>
             </div>
         </div>
         <div class="row" v-for="(data, idx) in dataValue">
             <div class="col col-sm-10">
                 <div class="row">
-                    <div class="col" :class="'col-sm-' + (12 / keys.length)" v-for="key in keys">
+                    <div class="col" :class="'col-sm-' + (12 / options.length)" v-for="option in options">
                         <input-text
-                            v-model="data[key]"
-                            :name="key + idx"
+                            v-if="option.options === null"
+                            v-model="data[option.key]"
+                            :name="option.key + idx"
                             @input="update">
                         </input-text>
+                        <input-select
+                            v-if="option.options !== null"
+                            v-model="data[option.key]"
+                            :name="option.key + idx"
+                            :options="option.options"
+                            :has-empty="false"
+                            @input="update">
+                        </input-select>
                     </div>
                 </div>
             </div>
             <div class="col col-sm-2">
                 <button type="button" class="btn btn-danger btn-block" @click="removeAt(idx)">
-                    <i class="fa fa-trash"></i>
+                    <i class="fal fa-trash"></i>
                 </button>
             </div>
         </div>
@@ -59,14 +68,10 @@
     export default {
         mixins: [inputMixin],
         props: {
-            labels: {
+            options: {
                 type: Array,
                 required: true
-            },
-            keys: {
-                type: Array,
-                required: true
-            },
+            }
         },
         methods: {
             update(){
@@ -81,8 +86,9 @@
             insert(){
                 var elt = {};
 
-                elt[this.keys[0]] = '';
-                elt[this.keys[1]] = '';
+                for(var i=0; i<this.options.length; ++i){
+                    elt[this.options[i].key] = '';
+                }
 
                 this.dataValue.push(elt);
                 this.updateValue(this.dataValue);
