@@ -10,19 +10,17 @@ label{
 </style>
 
 <template>
-    <div class="document-input" :class="classes">
+    <div class="document-input">
 
         <input type="file" 
             :multiple="multiple"
             :id="'file-input-' + id"
             class="file-input">
 
-        <label :for="'file-input-' + id" class="filedrop m-0">
-            <span v-show="showIcon">
-                <i class="fas fa-folder-open"></i>
-            </span>
+        <label :for="'file-input-' + id" 
+            class="filedrop m-0"
+            :class="classes">
             <slot name="content"></slot>
-            {{ inputText }}
         </label>
 
     </div>
