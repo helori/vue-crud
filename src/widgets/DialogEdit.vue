@@ -165,7 +165,7 @@
 
                         promise.then(r => {
                             this.status = 'success';
-                            this.finished = true;
+                            //this.finished = true;
                         }).catch(r => {
                             this.status = 'error';
                         });
@@ -188,7 +188,7 @@
                 if(callback){
                     this.openCallback = callback;
                 }
-                this.finished = false;
+                //this.finished = false;
                 this.status = null;
                 this.dialog.modal('show');
             },
