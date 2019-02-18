@@ -55,11 +55,11 @@
 
 <script>
 
-    import InputMixin from './InputMixin.js'
+    import inputMixin from '../mixins/InputMixin.js'
 
     export default {
 
-        mixins: [InputMixin],
+        mixins: [inputMixin],
 
         data(){
             return {
