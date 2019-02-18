@@ -64,7 +64,6 @@
         data(){
             return {
                 search: '',
-                buttonText: 'Add...',
             };
         },
 
@@ -78,6 +77,11 @@
             itemsNameField: {
                 required: true,
                 default: 'name'
+            },
+            buttonText: {
+                type: String,
+                required: false,
+                default: 'Add...'
             },
         },
 
