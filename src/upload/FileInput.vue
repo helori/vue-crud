@@ -10,7 +10,7 @@ label{
 </style>
 
 <template>
-    <div class="document-input">
+    <span class="document-input">
 
         <input type="file" 
             :multiple="multiple"
@@ -23,7 +23,7 @@ label{
             <slot name="content"></slot>
         </label>
 
-    </div>
+    </span>
 
 </template>
 
