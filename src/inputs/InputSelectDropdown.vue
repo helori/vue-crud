@@ -7,11 +7,12 @@
 
         <button type="button"
             class="btn btn-secondary dropdown-toggle" 
+            :class="classes"
             :id="uniqId" 
             data-toggle="dropdown" 
             aria-haspopup="true" 
             aria-expanded="false">
-            <i class="fal fa-plus-circle"></i>
+            <i class="fal fa-plus-circle fa-fw mr-1"></i>
             {{ buttonText }}
         </button>
 
@@ -44,10 +45,13 @@
             </div>
         </div>
 
-        <div v-for="item in dataValue" :key="item.id"
-            class="bg-gray-100 rounded border border-1 border-gray-300 py-2 px-3 mt-1">
-            <i class="fal fa-check-circle fa-fw mr-1"></i>
-            {{ item[itemsNameField] }}
+        <div v-for="item in dataValue" :key="item.id">
+            <slot name="selected-item" :item="item">
+                <div class="bg-gray-100 rounded border border-1 border-gray-300 py-2 px-3 mt-1">
+                    <i class="fal fa-check-circle fa-fw mr-1"></i>
+                    {{ item[itemsNameField] }}
+                </div>
+            </slot>
         </div>
 
     </div>
@@ -82,6 +86,11 @@
                 type: String,
                 required: false,
                 default: 'Add...'
+            },
+            classes: {
+                type: String,
+                required: false,
+                default: ''
             },
         },
 
