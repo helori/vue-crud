@@ -17,14 +17,19 @@ Vue.filter('datetime', function (value, format) {
 });
 
 Vue.filter('diffInDays', function (dateFrom, dateTo) {
-    if(dateFrom && dateTo){
-        var dateFrom = moment(dateFrom, "YYYY-MM-DD hh:mm:ss");
-        var dateTo = moment(dateTo, "YYYY-MM-DD hh:mm:ss");
-        var days = dateTo.diff(dateFrom, 'days');
-        return days;
-    }else{
+
+    if(!dateFrom){
         return 0;
     }
+    dateFrom = moment(dateFrom, "YYYY-MM-DD hh:mm:ss");
+
+    if(!dateTo){
+        dateTo = moment();
+    }else{
+        dateTo = moment(dateTo, "YYYY-MM-DD hh:mm:ss");
+    }
+
+    return dateTo.diff(dateFrom, 'days');
 });
 
 Vue.filter('secondsToDuration', function (seconds) {
