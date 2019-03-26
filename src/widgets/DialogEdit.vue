@@ -21,7 +21,7 @@
                         </button>
                     </div>
                     
-                    <div class="modal-body">
+                    <div class="modal-body" :class="bodyClasses">
 
                         <div v-show="finished" class="text-success text-center py-5">
                             <i class="fal fa-check-circle fa-5x"></i>
@@ -117,7 +117,12 @@
                 required: false,
                 default: 'Close'
             },
-            size: { // 'lg', 'sm'
+            size: {
+                type: String,
+                required: false,
+                default: ''
+            },
+            bodyClasses: { // 'lg', 'sm'
                 type: String,
                 required: false,
                 default: ''
