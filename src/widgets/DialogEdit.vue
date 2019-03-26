@@ -8,8 +8,9 @@
 
         <div class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dialog-centered" role="document" :class="{
-                'modal-lg': size === 'lg',
                 'modal-sm': size === 'sm',
+                'modal-lg': size === 'lg',
+                'modal-xl': size === 'xl',
             }">
                 <div class="modal-content">
                     
